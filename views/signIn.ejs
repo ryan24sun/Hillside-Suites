@@ -17,6 +17,9 @@
           <!-- Font Awesome -->
           <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
 
+          <!-- Bootstrap Social Buttons -->
+          <link rel="stylesheet" href="css/bootstrap-social.css">
+
           <!-- Google Fonts -->
           <link rel="preconnect" href="https://fonts.googleapis.com">
           <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,34 +70,46 @@
 
           <div class="spacer"></div>
 
+          <% if (failedAttempt) { %>
+            <div class="jumbotron-fluid alert alert-danger successJumbo">
+              <h2 class="display-4 reserveErrorHeader">Sign in Error</h2>
+              <p class="lead reserveErrorText">Your email or password do not match.</p>
+            </div>
+          <% } %>
+
           <div class="row justify-content-center">
             <div class="col col-8">
-                <div class="card accountCard">
-                    <div class="card-body">
-                        <h1 class="card-title accountTitle">Sign in</h1>
+                <div class="card accountCard card-body">
 
-                        <form action="/signIn" class="row justify-content-center needs-validation" method="post" novalidate>
+                  <form action="/signIn" class="row justify-content-center needs-validation accountContent" method="post" novalidate>
 
-                            <!-- fix validation -->
-                            <div class="col-lg-6">
-                                <label class="form-label accountLabel">Email</label>
-                                <input name="email" type="email" class="form-control" required>
-                                <div class="invalid-feedback">Please enter a valid email.</div>
-                            </div>
+                    <h1 class="card-title accountTitle">Sign in</h1>
 
-                            <div class="col-lg-6">
-                                <label class="form-label accountLabel">Password</label>
-                                <input name="password" type="password" class="form-control" required>
-                                <div class="invalid-feedback">Please enter a valid password.</div>
-                            </div>
+                      <div class="col-lg-6">
+                          <label class="form-label accountLabel">Email</label>
+                          <input name="username" type="email" class="form-control" required>
+                          <div class="invalid-feedback">Please enter a valid email.</div>
+                      </div>
 
-                            <button type="submit" class="btn btn-dark joinBtn">Sign in</button>
-                        </form>
+                      <div class="col-lg-6">
+                          <label class="form-label accountLabel">Password</label>
+                          <input name="password" type="password" class="form-control" required>
+                          <div class="invalid-feedback">Please enter a valid password.</div>
+                      </div>
 
+                      <button type="submit" class="btn btn-dark joinBtn">Sign in</button>
+                  </form>
+
+                  <div class="or-container"><div class="line-separator"></div><div class="line-separator"></div></div>                
+
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a class="btn btn-block btn-social btn-google" href="/auth/google"><i class="fab fa-google"></i> Sign In With Google</a>
                     </div>
                   </div>
-            </div>
-            
+
+                </div>
+              </div>
           </div>
           
           <div class="spacer"></div>

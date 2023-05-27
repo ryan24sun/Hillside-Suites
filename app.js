@@ -6,8 +6,11 @@ const request = require("request");
 const https = require("https");
 const mongoose = require("mongoose");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const session = require("express-session");
+const passport = require("passport");
+const passportLocalMongoose = require("passport-local-mongoose");
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
+const findOrCreate = require("mongoose-findorcreate");
 
 //Set up express with Node js
 const app = express();
@@ -17,6 +20,16 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 //Configures body-parser middleware
 app.use(bodyParser.urlencoded({extended: true}));
+
+//Initializes session and passport
+app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //Connects to MongoDB Database
 const dbUrl = process.env.DB_URL;
@@ -174,10 +187,44 @@ const Order = mongoose.model("Order", ordersSchema);
 //Accounts Database
 const usersSchema = new mongoose.Schema ({
     email: String,
-    password: String
+    password: String,
+    googleId: String
 });
 
+usersSchema.plugin(passportLocalMongoose);
+usersSchema.plugin(findOrCreate);
+
 const User = mongoose.model("User", usersSchema);
+
+//Configurations to create cookie session for user
+passport.use(User.createStrategy());
+
+passport.serializeUser(function(user, done) {
+    done(null, user.id);
+});
+
+passport.deserializeUser(async function(id, done) {
+    const user = await User.findById(id);
+    done(err, user);
+});
+
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+//Configurations to log in with Google
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/myBookings",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    console.log(profile);
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    });
+  }
+));
 
 //Website Pages
 app.get("/" || "/home", async function(req, res){
@@ -246,12 +293,79 @@ app.get("/mailchimp", function(req, res){
     }
 });
 
+//Redirects user to sign up with Google
+app.get("/auth/google", passport.authenticate("google", { scope: ["profile"] }));
+
+app.get("/auth/google/myBookings", 
+    passport.authenticate("google", { failureRedirect: "/signUp" }),
+    function(req, res) {
+        // Successful authentication, redirect home.
+        res.redirect("/myBookings");
+    });
+
 app.get("/register", function(req, res){
     res.render("register.ejs");
 });
 
+var failedAttempt = false;
+
 app.get("/signIn", function(req, res){
-    res.render("signIn.ejs");
+    res.render("signIn.ejs", {failedAttempt});
+    failedAttempt = false;
+});
+
+app.get("/myBookings", function(req, res){
+    if (req.isAuthenticated()){
+        res.render("myBookings.ejs");
+    } else {
+        res.redirect("/signIn");
+    }
+});
+
+//Register Page
+app.post("/register", async function(req, res){
+
+    User.register({username: req.body.username}, req.body.password, function(err, user){
+        if (err) {
+            console.log(err);
+            res.redirect("/register");
+        } else {
+            passport.authenticate("local")(req, res, function(){
+                res.redirect("/myBookings");
+            });
+        }
+    });
+});
+
+//SignIn Page
+app.post("/signIn", async function(req, res){
+
+    const user = new User({
+        username: req.body.username,
+        password: req.body.password
+    });
+
+    req.login(user, function(err){
+        if (err) {
+            console.log(err);
+        } else {
+            failedAttempt = true;
+            passport.authenticate("local", {failureRedirect: "/signIn"})(req, res, function(){
+                failedAttempt = false;
+                res.redirect("/myBookings");
+            });
+        }
+    });
+});
+
+//Logout Button
+app.get("/logout", function(req, res){
+    req.logout(function(err) {
+        if (err) {
+            console.log(err);
+        }
+    });
+    res.redirect("/");
 });
 
 var comingFromStripe = 0;
@@ -335,39 +449,6 @@ app.get("/success", async function(req, res){
 });
 
 var mailchimpSuccess = 0;
-
-//Register Page
-app.post("/register", async function(req, res){
-
-    //Uses bcrypt to hash and salt password
-    bcrypt.hash(req.body.password, saltRounds, async function(err, hash) {
-        
-        await User.create({
-            email: req.body.email,
-            password: hash
-        });
-    
-        res.redirect("/amenities");
-    });
-
-});
-
-//SignIn Page
-app.post("/signIn", async function(req, res){
-
-    const email = req.body.email;
-    const password = req.body.password;
-
-    const foundUser = await User.findOne({email: email});
-    if (foundUser) {
-        //Uses bcrypt to compare salted and hashed password in database
-        bcrypt.compare(password, foundUser.password, function(err, result) {
-            if (result === true) {
-                res.redirect("/amenities");
-            }
-        });
-    }
-});
 
 //Mailchimp API
 app.post("/", function(req, res){
@@ -715,7 +796,7 @@ app.post("/reserve", function(req, res){
 });
 
 var finalRooms = [];
-var session;
+var stripeSession;
 
 //Stripe checkout
 app.post(("/pickRoom"), async function(req, res) {
@@ -744,7 +825,7 @@ app.post(("/pickRoom"), async function(req, res) {
     }    
 
     //Create a new Stripe checkout session
-    session = await stripe.checkout.sessions.create({
+    stripeSession = await stripe.checkout.sessions.create({
         line_items: [
             {
                 price_data: {
@@ -767,7 +848,7 @@ app.post(("/pickRoom"), async function(req, res) {
     });
 
     //Redirects to Stripe checkout
-    res.redirect(session.url);
+    res.redirect(stripeSession.url);
 });
 
 //Allows app to run locally and on Heroku

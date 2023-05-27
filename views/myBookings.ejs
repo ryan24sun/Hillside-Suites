@@ -17,9 +17,6 @@
           <!-- Font Awesome -->
           <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
 
-          <!-- Bootstrap Social Buttons -->
-          <link rel="stylesheet" href="css/bootstrap-social.css">
-
           <!-- Google Fonts -->
           <link rel="preconnect" href="https://fonts.googleapis.com">
           <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -72,40 +69,15 @@
 
           <div class="row justify-content-center">
             <div class="col col-8">
+                <div class="card accountCard">
+                    <div class="card-body">
+                        
+                        
 
-              <div class="card accountCard card-body">
-
-                <form action="/register" class="row justify-content-center needs-validation accountContent" method="post" novalidate>
-
-                  <h1 class="card-title accountTitle">Register</h1>
-
-                    <div class="col-lg-6">
-                        <label class="form-label accountLabel">Email</label>
-                        <input name="username" type="email" class="form-control" required>
-                        <div class="invalid-feedback">Please enter a valid email.</div>
                     </div>
-
-                    <div class="col-lg-6">
-                        <label class="form-label accountLabel">Password</label>
-                        <input name="password" type="password" class="form-control" required>
-                        <div class="invalid-feedback">Please enter a valid password.</div>
-                    </div>
-
-                    <button type="submit" class="btn btn-dark joinBtn">Join</button>
-                </form>
-
-                <div class="or-container"><div class="line-separator"></div><div class="line-separator"></div></div>                
-
-                <div class="row">
-                  <div class="col-sm-12">
-                    <a class="btn btn-block btn-social btn-google" href="/auth/google"><i class="fab fa-google"></i> Sign Up With Google</a>
                   </div>
-                </div>
-
-              </div>
-
-                
             </div>
+            
           </div>
           
           <div class="spacer"></div>
@@ -119,25 +91,6 @@
             <p class="footerText">Hillside Suites</p>
 
           </footer>
-
-          <!-- JQuery Script -->
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-          <script>
-            //Fetch the form to apply Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            //Loop over unfilled info from the form and prevent submission
-            Array.from(forms).forEach(form => {
-              form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-              }, false)
-            });
-          </script>
           
       </body>
         
