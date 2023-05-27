@@ -6,7 +6,8 @@ const request = require("request");
 const https = require("https");
 const mongoose = require("mongoose");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-const encrypt = require("mongoose-encryption");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 //Set up express with Node js
 const app = express();
@@ -176,9 +177,6 @@ const usersSchema = new mongoose.Schema ({
     password: String
 });
 
-//Encrypts passwords stored in User database
-usersSchema.plugin(encrypt, { secret: process.env.SECRET, encryptedFields: ["password"] });
-
 const User = mongoose.model("User", usersSchema);
 
 //Website Pages
@@ -341,32 +339,34 @@ var mailchimpSuccess = 0;
 //Register Page
 app.post("/register", async function(req, res){
 
-    await User.create({
-        email: req.body.email,
-        password: req.body.password
+    //Uses bcrypt to hash and salt password
+    bcrypt.hash(req.body.password, saltRounds, async function(err, hash) {
+        
+        await User.create({
+            email: req.body.email,
+            password: hash
+        });
+    
+        res.redirect("/amenities");
     });
-
-    res.redirect("/amenities");
 
 });
 
+//SignIn Page
 app.post("/signIn", async function(req, res){
 
     const email = req.body.email;
     const password = req.body.password;
 
-    User.findOne({email: email}, function(err, foundUser){
-        if (err) {
-            console.log(err);
-        } else {
-            if (foundUser) {
-                if (foundUser.password === password) {
-                    res.redirect("/amenities");
-                }
+    const foundUser = await User.findOne({email: email});
+    if (foundUser) {
+        //Uses bcrypt to compare salted and hashed password in database
+        bcrypt.compare(password, foundUser.password, function(err, result) {
+            if (result === true) {
+                res.redirect("/amenities");
             }
-        }
-    });
-
+        });
+    }
 });
 
 //Mailchimp API
