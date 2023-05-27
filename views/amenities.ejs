@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>About Page</title>
+
+        <!-- Bootstrap Scripts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+  
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+    </head>
+
+    <body>
+        <section id="titleAmenities">
+            <div class="container-fluid">
+              <!-- Nav bar -->
+              <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">
+                  <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                </a>
+            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler01">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="amenities">Amenities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="accommodations">Accommodations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
+               <!-- Title for amenities page -->
+              <div class = "titling-body">
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class = "titleAmenities">
+                      <h1 class = "luxAmen">Hillside Amenities</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </section>
+         <!-- Integrated map api here -->
+        <div class="spacer"></div>
+          <div class = "map-back">
+          <div>
+            <h2 class = "mapText">Find Local Attractions</h2>
+              <div class = "container">
+                <div id="map">
+                  <script>
+                    function initMap() {
+                      let centerPark = {lat: 40.89848754116071, lng: -74.36129154155682}
+                      let lakeClub = {lat: 40.927694524353996, lng: -74.37558778876361}
+                      let willowbrookMall = {lat: 40.88927898359623, lng: -74.25972867527334}
+                      let pyramidMt = {lat: 40.947091423130885, lng: -74.38912523584578}
+                      let knollGolf = {lat: 40.8964754478072, lng: -74.38421331342028}
+                      let montvillePark = {lat: 40.89899728436177, lng: -74.36521314485292}
+                      let map = new google.maps.Map(
+                        document.getElementById('map'), {zoom: 12, center: centerPark}
+                      );
+                      let marker = new google.maps.Marker({position: lakeClub, map: map})
+                      let marker2 = new google.maps.Marker({position: willowbrookMall, map: map})
+                      let marker3 = new google.maps.Marker({position: pyramidMt, map: map})
+                      let marker4 = new google.maps.Marker({position: knollGolf, map: map})
+                      let marker5 = new google.maps.Marker({position: montvillePark, map: map})
+
+                      const markerString = "Valhala Lake Club";
+                      const markerString2 = "Willowbrook Mall";
+                      const markerString3 = "Pyramid Mountain";
+                      const markerString4 = "Knoll Golf Course";
+                      const markerString5 = "Montville Park";
+                    }
+
+                    window.initMap = initMap;
+                  </script>
+                  <script src="<%= mapKey %>" defer></script> 
+                </div>
+                
+              </div>
+          </div>
+          </div>
+          <!-- Various amenities here at Hillside Suites -->
+          <section id = "amenities">
+            <div>
+            <div class = "first-amenity">
+              <div class = "amenities-pic">
+                <img class="amenities1" src="images/pass.jpeg" alt="pass-amenity">
+              </div>
+              <div class = "amenity-desc">
+                <h3 style="font-size: 2vw" class = "in-blue">Our All-Inclusive Pass Is The Opportunity Of A Lifetime</h3>
+              </div>
+            </div>
+            <div class = "first-amenity-pic">
+              <div class = "big-amenity">
+                <img class="big-pic" src="images/entertainment.jpeg" alt="entertainment-amenity">
+              </div>
+              <div class = "text-big">
+                <h3 style="font-size: 2vw" class = "in-blue">Enjoy Our World-Class Entertainment. Indulge in bars, concerts, parties, and more. </h3>
+              </div>
+            </div>
+            <div class = "second-amenity">
+              <div class = "amenities-pic">
+                <img class="amenities2" src="images/dining.jpeg" alt="dining-amenity">
+              </div>
+              <div class = "amenity-desc2">
+                <h3 style="font-size: 2vw" class = "in-blue">We only serve the highest quality food here at Hillside.</h3>
+              </div>
+            </div>
+            <div class = "big-amenity2">
+              <img class="big-pic" src="images/skyline.jpg" alt="tours-amenity">
+            </div>
+            <div class = "text-big2">
+              <h3 style="font-size: 2vw" class = "in-blue">Hillside has exclusive access to tours in the Big Apple. See the front desk for booking information.</h3>
+            </div>
+            </div>
+          </section>
+
+          <!-- Social media footer -->
+          <footer class="amenitiesFooter">
+
+            <i class="footerIcon fa-brands fa-instagram"></i>
+            <i class="footerIcon fa-brands fa-twitter"></i>
+            <i class="footerIcon fa-brands fa-facebook-f"></i>
+            <i class="footerIcon fa-solid fa-envelope"></i>
+            <p class="footerText">Hillside Suites</p>
+
+          </footer>
+  
+    </body>    
+</html>

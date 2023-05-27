@@ -1,0 +1,687 @@
+/* General styling */
+body {
+    background-color: #EDE6DB;
+    font-family: 'Montserrat', sans-serif;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.spacer {
+    padding: 3%;
+}
+
+.container-fluid {
+    padding: 2% 7%;
+}
+
+.row {
+    max-width: 100%;
+}
+
+/* Navbar */
+.navbar {
+    padding: 0 0 4.5rem;
+}
+
+.navbar-brand {
+    padding: 0;
+}
+
+/* Original margin 4% */
+.nav-item {
+    font-size: 1.2rem;
+    margin: 1% 2.6% 1% 0;
+}
+
+.navBtn {
+    width: 110px;
+}
+
+.amenitiesBtn {
+    width: 130px;
+}
+
+.accommodationsBtn {
+    width: 190px;
+}
+
+.btn-custom {
+    background-color: #1D5C63;
+}
+
+.btn-custom:hover {
+    background-color: #417D7A;
+    border-color: #417D7A;
+    color: white;
+}
+
+.nav-link {
+    color: rgb(255, 255, 255);
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(29,92,99, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.navbar-toggler {
+    border-color: #1D5C63;
+}
+
+.transparentBtn {
+    background: rgb(0, 0, 0, 0.15);
+    border: none;
+}
+
+/* Footer */
+#footer {
+    text-align: center;
+    margin-top: 3%;
+}
+
+.footerIcon {
+    font-size: 1.3rem;
+    padding: 1% 1% 1.4% 1%;
+}
+
+.footerText {
+    color: grey;
+    font-size: 1.2rem;
+    margin-bottom: 60px;
+}
+
+/* Home Page */
+#titleMain {
+    background-image: url(../images/homePic4.jpeg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: auto;
+    width: auto;
+    padding-bottom: 10%;
+    max-width: 100%;
+    max-height: 842.72px;
+}
+
+.titleName {
+    padding-top: 30%;
+    font-family: 'Poppins', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 3.5rem;
+    padding-bottom: 2%;
+}
+
+.subtitleName {
+    color: white;
+}
+
+.title {
+    color: black;
+    text-align: center;
+}
+
+.titleBHome {
+    color: black;
+    text-align: center;
+}
+
+.picSection {
+    text-align: center;
+    position: relative;
+}
+
+.roomsPic1 {
+    width: 95%;
+    height: 650px;
+    object-fit: cover;
+}
+
+.roomsPic2 {
+    width: 90%;
+    margin: 6% 0;
+    height: 563.56px;
+    object-fit: cover;
+}
+
+.testimonials {
+    background-color: #1D5C63;
+    width: 75%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: .95;
+}
+
+.quote {
+    font-size: 2rem;
+    color: white;
+    padding: 5% 14% 1% 14%;
+}
+
+.person {
+    font-size: 2rem;
+    color: white;
+}
+
+#info .container-fluid {
+    padding: 7%;
+    background-color: #417D7A;
+    text-align: center;
+    color: white;
+}
+
+.features {
+    padding: 3%;
+}
+
+.icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.featuresTitle {
+    font-family: 'Poppins', sans-serif;
+    padding: 1%;
+}
+
+#cta {
+    background-color: #417D7A;
+    color: white;
+    text-align: center;
+    padding: 8% 7%;
+}
+
+.startNow {
+    font-size: 3.5rem;
+    padding-bottom: 3%;
+}
+
+.bookNow {
+    padding: 1.2% 2.6%;
+    font-size: 1.3rem;
+}
+
+.mail {
+    padding: 6% 0 2% 0;
+    font-size: 2.5rem;
+}
+
+.signUpEmail {
+    padding: 8px;
+    width: 30%;
+    min-width: 300px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+/* Accommodations Page */
+#accommodationMain {
+    background-image: url(../images/d8ab42125604113.611ca9bc57750.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: auto;
+    max-width: 100%;
+    max-height: 870px;
+    padding-bottom: 11%;
+}
+
+#accommodationDescriptions h2 {
+    font-weight: bold;
+}
+
+.accommodationsName {
+    font-family: 'Poppins', sans-serif;
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+}
+
+.accommodations-title {
+    padding: 4% 4% 4% 4%;
+    text-align: center;
+    max-width: 800px;
+    color: rgb(255, 255, 255);
+    background-color: rgba(29, 92, 99, .7);
+    backdrop-filter: blur(10px);
+}
+
+.titling-body-accommodations {
+    margin-top: 20%;
+}
+
+.generalDescription {
+    text-align: center;
+    padding: 6% 15%;
+}
+
+.description {
+    font-size: 1.5rem;
+    padding-bottom: 10px;
+}
+
+.beds {
+    color: grey;
+    font-size: 1.5rem;
+    padding-top: 2%;
+}
+
+.darkBeds {
+    font-size: 1.5rem;
+    padding-top: 2%;
+}
+
+.descriptionPic {
+    padding: 6%;
+    width: 100%;
+}
+
+.singleRoom {
+    padding: 6%;
+    width: 100%;
+    object-fit: cover;
+    max-height: 650px;
+}
+
+.sideDescription {
+    padding: 6% 5%;
+}
+
+.doubleRoom {
+    background-color: #1D5C63;
+    color: white;
+}
+
+.masterSuite {
+    background-color: #1D5C63;
+    color: white;
+}
+
+/* About Page */
+#titleAbout {
+    background-image: url(../images/ODADA-Hotel_Paradox-0590.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: auto;
+    max-width: 100%;
+    max-height: 842.72px;
+}
+
+.aboutPic {
+    height: 400px;
+    object-fit: cover;
+}
+
+.about-title {
+    margin-top: 50%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    max-width: 400px;
+    font-family: 'Poppins';
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+    background-color: rgba(29, 92, 99, .7);
+    backdrop-filter: blur(10px);
+    margin-bottom: 40%;
+}
+
+.aboutHeader {
+    text-align: center;
+    padding: 3%;
+}
+
+.aboutCards {
+    margin: 5%;
+    text-align: center;
+}
+
+.mission {
+    background-color: #417D7A;
+    color: white;
+}
+
+.missionTitle {
+    text-align: center;
+    padding-top: 5%;
+}
+
+.missionText {
+    text-align: center;
+    padding: 1% 10% 5% 10%;
+    font-size: 1.5rem;
+}
+
+.aboutTitle {
+    padding-top: 3%;
+}
+
+.contactTitle {
+    text-align: center;
+    padding-bottom: 3%;
+}
+
+.contactDiv {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.contactOptions {
+    display: inline-block;
+}
+
+.documentation {
+    padding-top: 1%;
+    padding-bottom: 2%;
+}
+
+.docBtn {
+    width: 200px;
+    margin: 0 2%;
+}
+
+/* Amenities Page */
+#titleAmenities {
+    background-image: url(../images/copernico-cLmOptqvuFQ-unsplash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: auto;
+    max-width: 100%;
+}
+
+.titling-body {
+    margin-top: 15%;
+}
+
+.first-amenity {
+    margin-bottom: -25%;
+}
+
+.second-amenity {
+    margin-top: 10%;
+    margin-bottom: -25%;
+}
+
+.first-amenity-pic {
+    margin-bottom: -30%;
+}
+
+.text-big {
+    background-color: #1D5C63;
+    opacity: .5;
+    transform: translate(30%, -250%);
+    width: 35%;
+    height: 30%;
+    padding: 5%;
+    opacity: .95;
+    position: sticky;
+}
+
+.text-big2 {
+    background-color: #1D5C63;
+    opacity: .5;
+    transform: translate(150%, -130%);
+    width: 35%;
+    height: 30%;
+    padding: 5%;
+    opacity: .95;
+}
+
+.in-blue {
+    color: white;
+}
+
+.big-pic {
+    height: 10%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.big-amenity2 {
+    margin-bottom: -15%;
+}
+
+.amenities-pic {
+    background-color: #EDE6DB;
+}
+
+.amenities1 {
+    width: 50%;
+    height: 50%;
+    margin-left: 15%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.amenity-desc {
+    background-color: #1D5C63;
+    transform: translate(170%, -240%);
+    width: 30%;
+    height: 30%;
+    padding: 5%;
+    opacity: .95;
+}
+
+.amenities2 {
+    width: 50%;
+    height: 50%;
+    margin-left: 30%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+}
+
+.amenity-desc2 {
+    background-color: #1D5C63;
+    transform: translate(50%, -240%);
+    width: 30%;
+    height: 30%;
+    padding: 5%;
+    opacity: .95;
+}
+
+.amenities-body {
+    padding-top: 5%;
+    padding-bottom: 5%;
+}
+
+.container {
+    margin-top: -5%;
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.map-back {
+    background-color: #417D7A;
+}
+
+.mapText {
+    text-align: center;
+    color: white;
+    padding-bottom: 2%;
+    font-size: 2.5rem;
+}
+
+.amenitiesText {
+    text-align: center;
+    padding-top: 10%;
+}
+
+#map {
+    width: 100%;
+    height: 70%;
+}
+
+.map {
+    clear: none;
+    text-align: center;
+}
+
+.mapText {
+    text-align: center;
+    padding-top: 5%;
+}
+
+.amenitiesText {
+    text-align: center;
+    padding-top: 10%;
+    ;
+}
+
+.titleAmenities {
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-bottom: 5%;
+    padding-top: 5%;
+    margin-top: 10%;
+    text-align: center;
+    max-width: 500px;
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    background-color: rgba(29, 92, 99, .7);
+    backdrop-filter: blur(10px);
+    margin-bottom: 20%;
+}
+
+.luxAmen {
+    font-family: 'Poppins', sans-serif;
+}
+
+.colored {
+    padding-top: 3%;
+    background-color: #1D5C63;
+    padding-bottom: 3%;
+    border: 2px black solid;
+}
+
+.not-colored {
+    padding-top: 3%;
+    padding-bottom: 3%;
+    border: 2px black solid;
+}
+
+.amenitiesFooter {
+    text-align: center;
+    margin-top: -2%;
+}
+
+/* Reserve Page */
+
+#titleReserve {
+    background-image: url(../images/reserveFinal.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: auto;
+    width: auto;
+    padding-bottom: 10%;
+    max-width: 100%;
+    max-height: 842.72px;
+}
+
+.title-reserve {
+    margin-top: 50%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align: center;
+    max-width: 400px;
+    font-family: 'Poppins';
+    color: rgb(255, 255, 255);
+    font-size: 2.5rem;
+    background-color: rgba(29, 92, 99, .7);
+    backdrop-filter: blur(10px);
+}
+
+#reserveForm {
+    padding: 7% 10%;
+}
+
+.formCount {
+    padding: 2% 1%;
+}
+
+.viewRates {
+    width: 160px;
+    margin-top: 2%;
+    margin-bottom: 5%;
+}
+
+.reserveCard {
+    margin: 4% 0;
+}
+
+.cardPic {
+    height: 422.52px;
+    width: 777.22px;
+    object-fit: cover;
+}
+
+#reserveForm h2 {
+    font-weight: bold;
+    padding-bottom: 1%;
+}
+
+.roomCard {
+    padding: 3% 5%;
+}
+
+small {
+    font-size: 1rem;
+    font-weight: normal;
+}
+
+#reserveForm h3 {
+    font-weight: bold;
+    padding-bottom: 2%;
+}
+
+.reserveErrorHeader {
+    font-size: 2.5rem;
+}
+
+.reserveErrorText {
+    padding-top: 15px;
+}
+
+.reserveErrorJumbo {
+    text-align: center;
+    margin: 5% 8% 0 8%;
+}
+
+/* Success Page */
+
+.successJumbo {
+    text-align: center;
+    margin: 7% 8%;
+    padding: 2% 0;
+}
+
+/* Register Page */
+
+.accountCard {
+    padding: 3%;
+    text-align: center;
+}
+
+.accountLabel {
+    margin: 10px;
+    text-align: left;
+}
+
+.accountTitle {
+    margin-bottom: 30px;
+}
+
+.joinBtn {
+    margin-top: 30px;
+    width: 130px;
+}

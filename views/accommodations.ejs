@@ -1,0 +1,146 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>HillsideSuites</title>
+        <!-- test comment -->
+        <!-- Bootstrap Scripts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+        <script src="accommodations.js"></script>
+        
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        
+        <section id="accommodationMain">
+            <div class="container-fluid">
+                
+              <!-- nav bar -->   
+              <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">
+                  <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                </a>
+            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler01">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="amenities">Amenities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="accommodations">Accommodations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+                
+              <!-- Title -->
+              <div class = "titling-body-accommodations">
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class = "accommodations-title">
+                      <h1 class="accommodationsName">Luxury Accommodations</h1>
+                    <div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </section>
+
+        <!-- Types of Rooms -->
+        <section id="accommodationDescriptions">
+            <div class="row">
+                <div class="generalDescription">
+                    <p class="description">Plunge yourself into any of our luxury rooms, ranging from a single room with one queen bed to a master suite with three beds.</p>
+                </div>
+
+                <!-- Single Room -->
+                <div class="col-lg-6 order-lg-1">
+                    <img class="singleRoom" src="images/singleRoomMostFinal.jpg" alt="singleRoom">
+                </div>
+                <div class="sideDescription col-lg-6 order-lg-2">
+                    <h2>Single Room</h2>
+                    <p class="beds">1 Queen</p>
+                    <p class="description">Enjoy your stay in one of our single rooms at Hillside Suites, with a queen bed, a TV, a couch, and a desk.</p>
+                    <a class="btn btn-lg btn-dark" href="reserve">Book Now</a>
+                </div>
+
+                <!-- Double Room -->
+                <div class="doubleRoom col-lg-6 order-lg-4">
+                    <img class="descriptionPic" src="images/doubleRoomFINAL.jpg" alt="doubleRoom">
+                </div>
+                <div class="doubleRoom sideDescription col-lg-6 order-lg-3">
+                    <h2>Double Room</h2>
+                    <p class="darkBeds">2 Doubles</p>
+                    <p class="description">Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a couch, and a desk.</p>
+                    <a class="btn btn-lg btn-outline-light" href="reserve">Book Now</a>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Triple Room -->
+                <div class="col-lg-6 order-lg-1">
+                    <img class="descriptionPic" src="images/tripleRoomFINAL.jpg" alt="tripleRoom">
+                </div>
+                <div class="sideDescription col-lg-6 order-lg-2">
+                    <h2>Triple Room</h2>
+                    <p class="beds">1 Queen 2 Doubles</p>
+                    <p class="description">Enjoy your stay in one of our triple rooms at Hillside Suites, with one queen bed, two double beds, a couch, and a desk.</p>
+                    <a class="btn btn-lg btn-dark" href="reserve">Book Now</a>
+                </div>
+            </div>
+
+            <!-- Master Suite-->
+            <div class="row masterSuite">
+                <div class="col-lg-6 order-lg-2">
+                    <img class="descriptionPic" src="images/green-bedroom-ideas.jpg" alt="masterSuite">
+                </div>
+                <div class="sideDescription col-lg-6 order-lg-1">
+                    <h2>Master Suite</h2>
+                    <p class="darkBeds">1 King 2 Queens</p>
+                    <p class="description">Enjoy your stay in one of our master suites at Hillside Suites, with one king bed, two queen beds, two couches, a desk, and a large bathtub.</p>
+                    <a class="btn btn-lg btn-outline-light" href="reserve">Book Now</a>
+                </div>
+            </div>
+        </section>
+
+        <footer id="footer">            
+
+            <!-- Footer Social Media Icons -->
+            <i class="footerIcon fa-brands fa-instagram"></i>
+            <i class="footerIcon fa-brands fa-twitter"></i>
+            <i class="footerIcon fa-brands fa-facebook-f"></i>
+            <i class="footerIcon fa-solid fa-envelope"></i>
+            <i class="fa-duotone fa-bed-front"></i>
+            <p class="footerText">Hillside Suites</p>
+            
+          </footer>
+
+    </body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+  <html lang="en">
+      
+      <head>
+          <meta charset="utf-8">
+          <title>HillsideSuites</title>
+        
+          <!-- Bootstrap Scripts -->
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+          <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+        
+          <!-- CSS Stylesheets -->
+          <link rel="stylesheet" href="css/styles.css">
+
+          <!-- Font Awesome -->
+          <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
+
+          <!-- Google Fonts -->
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+
+      </head>
+
+      <body>
+          
+          <section id="titleMain">
+              <div class="container-fluid">
+                  
+                  <!-- nav bar -->
+                  <nav class="navbar navbar-expand-lg navbar-dark">
+                    <a class="navbar-brand" href="/">
+                      <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                    </a>
+                
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarToggler01">
+                      <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                          <a class="nav-link" href="amenities">Amenities</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="accommodations">Accommodations</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="about">About</a>
+                        </li>
+                        <li class="nav-item">
+                          <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </nav>
+
+              </div>
+
+          </section>
+
+          <% if (comingFromStripe === 1 || comingFromStripe === 3) { %>
+            <section id="successMessage">
+              <div class="jumbotron-fluid alert alert-success successJumbo">
+                  <h2 class="display-4 reserveErrorHeader">Thank You!</h2>
+                  <p class="lead reserveErrorText">Your booking has been successfully processed and you will get an email confirmation shortly.</p>
+                  <hr class="my-4">
+                  <p>We look forward to welcoming you soon!</p>
+                </div>
+            </section>
+          <% } else { %>
+            <section id="successMessage">
+              <div class="jumbotron-fluid alert alert-danger successJumbo">
+                  <h2 class="display-4 reserveErrorHeader">Payment Error</h2>
+                  <p class="lead reserveErrorText">We're sorry, but there was an error processing your payment.</p>
+                  <hr class="my-4">
+                  <p>Please double-check your payment information and try again.</p>
+                </div>
+            </section>  
+          <% } %>     
+
+          <footer id="footer">
+            
+            <i class="footerIcon fa-brands fa-instagram"></i>
+            <i class="footerIcon fa-brands fa-twitter"></i>
+            <i class="footerIcon fa-brands fa-facebook-f"></i>
+            <i class="footerIcon fa-solid fa-envelope"></i>
+            <p class="footerText">Hillside Suites</p>
+
+          </footer>
+          
+      </body>
+        
+  </html>

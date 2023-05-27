@@ -1,0 +1,245 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>HillsideSuites</title>
+
+        <!-- Bootstrap Scripts -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
+      
+        <!-- CSS Stylesheets -->
+        <link rel="stylesheet" href="css/styles.css">
+
+        <!-- Font Awesome -->
+        <script src="https://kit.fontawesome.com/9f9f6da6a2.js" crossorigin="anonymous"></script>
+        
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
+      </head>
+
+    <body>
+        <section id="titleReserve">
+            <div class="container-fluid">
+
+              <!-- nav bar -->
+              <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">
+                  <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                </a>
+            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler01">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="amenities">Amenities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="accommodations">Accommodations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about">About</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              
+              <!-- Title -->
+              <div class="row">
+                <div class = "reserve">
+                  <div class="col-lg-5">
+                    <h1 class="title-reserve">Reserve Now</h1>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+        </section>
+
+        <!-- Shows alert telling the user they have selected more than the maximum occupancy per room -->
+        <% if (bookingError === 1) { %>
+          <div class="jumbotron-fluid alert alert-danger reserveErrorJumbo">
+            <h2 class="display-4 reserveErrorHeader">Correction Needed</h2>
+            <p class="lead reserveErrorText">We're sorry, but you have selected more than 6 people per room, which exceeds the maximum occupancy for our rooms.</p>
+            <hr class="my-4">
+            <p>To accomodate your group size, we recommend booking multiple rooms.</p>
+          </div>
+        <% } %>
+
+        <!-- Shows alert telling the user there are no currently available rooms for they info they have entered -->
+        <% if (bookingError === 2) { %>
+          <div class="jumbotron-fluid alert alert-danger reserveErrorJumbo">
+            <h2 class="display-4 reserveErrorHeader">No Available Rooms</h2>
+            <p class="lead reserveErrorText">We're sorry, but it looks like all of our rooms are currently booked for the dates you've selected. We apologize for any inconvenience this may cause.</p>
+            <hr class="my-4">
+            <p>You can also adjust your travel dates to see if there are other dates where we have rooms available.</p>
+          </div>
+        <% } %>
+
+        <!-- Shows alert telling the user they have entered incorrect dates -->
+        <% if (bookingError === 3) { %>
+          <div class="jumbotron-fluid alert alert-danger reserveErrorJumbo">
+            <h2 class="display-4 reserveErrorHeader">Correction Needed</h2>
+            <p class="lead reserveErrorText">We're sorry, but the booking dates you have selected are not valid.</p>
+            <hr class="my-4">
+            <p>In order to proceed with your booking, please change your booking dates.</p>
+          </div>
+        <% } %>
+
+        <section id="reserveForm">
+
+          <!-- Form to enter info to find available rooms -->
+          <form action="/reserve" class="row formSection needs-validation" method="post" novalidate>
+            <div class="col-md-6">
+              <label class="form-label">Arrival</label>
+              <input name="arrivalDate" type="date" class="form-control" required>
+              <div class="invalid-feedback">
+                Please select a valid arrival date.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Departure</label>
+              <input name="departureDate" type="date" class="form-control" required>
+              <div class="invalid-feedback">
+                Please select a valid departure date.
+              </div>
+            </div>
+            <div class="formCount col-md-4">
+              <select name="rooms" class="form-select" required>
+                <option selected disabled value="">Rooms (Maximum occupancy 6 people)</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid number of rooms.
+              </div>
+            </div>
+            <div class="formCount col-md-4">
+              <select name="adults" class="form-select" required>
+                <option selected disabled value="">Adults</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid number of adults.
+              </div>
+            </div>
+            <div class="formCount col-md-4">
+              <select name="children" class="form-select" required>
+                <option selected disabled value="">Children</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <div class="invalid-feedback">
+                Please select a valid number of children.
+              </div>
+            </div>
+            <div class="row justify-content-center text-center">
+              <div class="col-md-6">
+                <button type="submit" class="viewRates btn btn-dark">View Rates</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="spacer"></div>
+
+          <!-- Populates the page with all available rooms shown in the RoomType database in MongoDB -->
+          <% for (var i = 0; i < availableRooms.length; i++) { %>
+            <div class="reserveCard card lg-3">
+              <div class="row g-0">
+                <div class="col-lg-5">
+                  <img src="<%= availableRooms[i].image %>" class="cardPic img-fluid rounded-start" alt="...">
+                </div>
+                <div class="roomCard col-lg-6">
+                  <div class="card-body">
+
+                      <% if (availableRooms.length === 4) { %>
+                        <h2 class="card-title"><%= availableRooms[i].type %></h2>
+                      <% } else if (availableRooms[i].rooms === 1) { %>
+                        <h2 class="card-title"><%= availableRooms[i].rooms + " Room " + availableRooms[i].type %></h2>
+                      <% } else { %>
+                        <h2 class="card-title"><%= availableRooms[i].rooms + " Rooms " + availableRooms[i].type %></h2>
+                      <% } %>  
+                      
+                      <!-- Logic to display number and size of beds -->
+                      <% if (availableRooms[i].doubles === 0 && availableRooms[i].queens === 1 && availableRooms[i].kings === 0) { %>
+                          <p class="card-text text-muted">1 Queen</p> 
+                      <% } else if (availableRooms[i].doubles === 2 && availableRooms[i].queens === 0 && availableRooms[i].kings === 0) { %>
+                          <p class="card-text text-muted">2 Doubles</p> 
+                      <% } else if (availableRooms[i].doubles === 2 && availableRooms[i].queens === 1 && availableRooms[i].kings === 0) { %>
+                          <p class="card-text text-muted">1 Queen 2 Doubles</p> 
+                      <% } else { %>
+                          <p class="card-text text-muted">1 King 2 Queens</p>
+                      <% } %>
+                      
+                      <p class="card-text"><%= availableRooms[i].description %></p>
+                      <h3 class="card-text"><%= availableRooms[i].price %><small class="text-muted"> USD/night</small></h3>
+                      
+                      <!-- Shows a select button if the user is being shown available rooms -->
+                      <% if (availableRooms.length != 4) { %>
+                        <form action="/pickRoom" method="post">
+                          <!-- Button to rediret user to checkout -->
+                          <button type="submit" value="<%= availableRooms[i].type %>" name="roomButton" id="checkoutBtn" class="btn btn-dark btn-lg">Select</button>
+                        </form>
+                      <% } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% } %>
+          
+        </section>
+
+        <!-- Footer -->
+        <footer id="footer">
+          
+          <i class="footerIcon fa-brands fa-instagram"></i>
+          <i class="footerIcon fa-brands fa-twitter"></i>
+          <i class="footerIcon fa-brands fa-facebook-f"></i>
+          <i class="footerIcon fa-solid fa-envelope"></i>
+          <p class="footerText">Hillside Suites</p>
+
+        </footer>
+
+        <!-- JQuery Script -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script>
+          //Fetch the form to apply Bootstrap validation styles to
+          const forms = document.querySelectorAll('.needs-validation')
+
+          //Loop over unfilled info from the form and prevent submission
+          Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+              if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+              }
+
+              form.classList.add('was-validated')
+            }, false)
+          });
+        </script>
+    </body>
+</html>

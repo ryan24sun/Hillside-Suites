@@ -1,0 +1,32 @@
+{
+  "name": "hillside-suites",
+  "version": "1.0.0",
+  "description": "fbla website e-business 2022-2023",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryan24sun/Hillside-Suites.git"
+  },
+  "author": "Havish Boda, Aarav Mulinti, and Ryan Sun",
+  "license": "ISC",
+  "engines": {
+    "node": "16.17.0"
+  },
+  "bugs": {
+    "url": "https://github.com/ryan24sun/Hillside-Suites/issues"
+  },
+  "homepage": "https://github.com/ryan24sun/Hillside-Suites#readme",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.0.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
+    "mongoose": "^7.2.1",
+    "mongoose-encryption": "^2.1.2",
+    "request": "^2.88.2",
+    "stripe": "^12.7.0"
+  }
+}
