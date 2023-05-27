@@ -1,4 +1,4 @@
-# HillsideSuites
+# Hillside Suites
 Havish Boda, Aarav Mulinti, and Ryan Sun
 
 # Abstract
