@@ -31,56 +31,106 @@
 
       <body>
           
-          <section id="titleMain">
-              <div class="container-fluid">
-                  
-                  <!-- nav bar -->
-                  <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand" href="/">
-                      <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
-                    </a>
-                
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggler01">
-                      <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                          <a class="nav-link" href="amenities">Amenities</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="accommodations">Accommodations</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="about">About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
-                        </li>
-                      </ul>
+            <section id="titleMain">
+                <div class="container-fluid">
+                    
+                    <!-- nav bar -->
+                    <nav class="navbar navbar-expand-lg navbar-dark">
+                        <a class="navbar-brand" href="/">
+                        <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                        </a>
+                    
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarToggler01">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                            <a class="nav-link" href="amenities">Amenities</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="accommodations">Accommodations</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link" href="about">About</a>
+                            </li>
+                            <li class="nav-item">
+                            <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                            </li>
+                        </ul>
+                        </div>
+                    </nav>
+
+                    <!-- Title -->
+                    <div class="row">
+                        <div class = "reserve">
+                        <div class="col-lg-5">
+                            <h1 class="title-reserve">My Bookings</h1>
+                        </div>
+                        </div>
                     </div>
-                  </nav>
 
-              </div>
+                </div>
 
-          </section>
+            </section>
 
-          <div class="spacer"></div>
+            <div class="spacer"></div>
 
-          <div class="row justify-content-center">
-            <div class="col col-8">
-                <div class="card accountCard">
-                    <div class="card-body">
-                        
-                        
-
+            <!-- Prompts user to book if no bookings have been made -->
+            <% if (orders.length === 0) { %>
+                <section id="successMessage">
+                    <div class="jumbotron-fluid alert alert-secondary successJumbo">
+                        <h2 class="display-4 reserveErrorHeader">No Bookings Made</h2>
+                        <p class="lead reserveErrorText">You have not yet made any bookings with us at Hillside.</p>
+                        <hr class="my-4">
+                        <a href="reserve" class="btn btn-lg btn-dark">Book Now</a>
                     </div>
-                  </div>
-            </div>
+                </section>
+            <% } %>
             
-          </div>
-          
-          <div class="spacer"></div>
+            <div class="bookingsSection">
+                <!-- Populates the page with all of the user's orders stored in database -->
+                <% for (var i = 0; i < orders.length; i++) { %>
+                    <div class="ordersCard card lg-3">
+                    <div class="row g-0">
+                        <div class="col-lg-5">
+                            <% if (orders[i].type === "Single Room") { %>
+                                <img src="https://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg" class="cardPic img-fluid rounded-start" alt="...">
+                            <% } else if (orders[i].type === "Double Room") { %>
+                                <img src="https://www.nh-hotels.com/corporate/assets/uploads/2022/11/17175816/hotels-design-_int_6_green-rooms.jpg" class="cardPic img-fluid rounded-start" alt="...">
+                            <% } else if (orders[i].type === "Triple Room") { %>
+                                <img src="https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg" class="cardPic img-fluid rounded-start" alt="...">
+                            <% } else { %>
+                                <img src="http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg" class="cardPic img-fluid rounded-start" alt="...">
+                            <% } %>
+                        </div>
+                        <div class="roomCard col-lg-6">
+                            <div class="card-body">
+
+                                <!-- Displays room numbers of the user's booking -->
+                                <% if (orders[i].rooms.length === 1) { %>
+                                    <h2 class="bookingTitle card-title"><%= orders[i].rooms.length + " " + orders[i].type %></h2>
+                                    <p class="card-text"><%= "Room Number: " + orders[i].rooms[0].roomNumber %></p> 
+                                <% } else { %>
+                                    <h2 class="bookingTitle card-title"><%= orders[i].rooms.length + " " + orders[i].type + "s" %></h2>
+                                    <% if (orders[i].rooms.length === 2) { %>
+                                        <p class="card-text"><%= "Room Numbers: " + orders[i].rooms[0].roomNumber + " and " + orders[i].rooms[1].roomNumber %></p>
+                                    <% } else { %>
+                                        <p class="card-text"><%= "Room Numbers: " + orders[i].rooms[0].roomNumber + ", " + orders[i].rooms[1].roomNumber + ", and " + orders[i].rooms[2].roomNumber %></p>
+                                    <% } %>
+                                <% } %>
+
+                                <p class="card-text"><%= "Check in Date: " + orders[i].startDate%></p>
+                                <p class="card-text"><%= "  Check out Date: " + orders[i].endDate %></p>
+                                <h3 class="card-text">Total: <span class="bookingSmallTitle"><%= "$" + orders[i].totalPrice %></span></h3>
+
+                                <a href="" class="cancelBtn btn btn-dark btn-md">Cancel Booking</a>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                <% } %>
+            </div>
 
           <footer id="footer">
             

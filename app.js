@@ -171,6 +171,7 @@ for (let i = 30; i < 35; i++) {
 const ordersSchema = {
     name: String,
     email: String,
+    googleId: String,
     adults: Number,
     children: Number,
     type: String,
@@ -205,11 +206,8 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(async function(id, done) {
     const user = await User.findById(id);
-    done(err, user);
+    done(null, user);
 });
-
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
 //Configurations to log in with Google
 passport.use(new GoogleStrategy({
@@ -219,7 +217,6 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
   },
   function(accessToken, refreshToken, profile, cb) {
-    console.log(profile);
     User.findOrCreate({ googleId: profile.id }, function (err, user) {
       return cb(err, user);
     });
@@ -228,7 +225,7 @@ passport.use(new GoogleStrategy({
 
 //Website Pages
 app.get("/" || "/home", async function(req, res){
-    res.render("index.ejs");
+    res.render("index.ejs", {authenticated: req.isAuthenticated()});
 
     //Only adds room types to DB once
     const foundRooms = await RoomType.find();
@@ -304,19 +301,35 @@ app.get("/auth/google/myBookings",
     });
 
 app.get("/register", function(req, res){
-    res.render("register.ejs");
+    if (!(req.isAuthenticated())) {
+        res.render("register.ejs");
+    } else {
+        res.redirect("/");
+    }
 });
 
 var failedAttempt = false;
 
 app.get("/signIn", function(req, res){
-    res.render("signIn.ejs", {failedAttempt});
-    failedAttempt = false;
+    if (!(req.isAuthenticated())) {
+        res.render("signIn.ejs", {failedAttempt});
+        failedAttempt = false;
+    } else {
+        res.redirect("/");
+    }
 });
 
-app.get("/myBookings", function(req, res){
+//My Bookings Page (can only be seen after signed in)
+app.get("/myBookings", async function(req, res){
     if (req.isAuthenticated()){
-        res.render("myBookings.ejs");
+        //Searches for matching orders in database
+        if (req.user.username != null) {
+            const matchingOrders = await Order.find({email: req.user.username});
+            res.render("myBookings.ejs", {orders: matchingOrders});
+        } else {
+            const matchingOrders = await Order.find({googleId: req.user.googleId});
+            res.render("myBookings.ejs", {orders: matchingOrders});
+        }
     } else {
         res.redirect("/signIn");
     }
@@ -377,7 +390,7 @@ app.get("/success", async function(req, res){
         res.redirect("/");
     } else {
         const sessionOrder = await stripe.checkout.sessions.retrieve(
-            session.id
+            stripeSession.id
         );
     
         console.log(sessionOrder);
@@ -430,17 +443,33 @@ app.get("/success", async function(req, res){
                 console.log(finalRoomNumbers);
     
                 //Adds order to MongoDB
-                await Order.create({
-                    name: sessionOrder.customer_details.name,
-                    email: sessionOrder.customer_details.email,
-                    adults: adults * rooms,
-                    children: children * rooms,
-                    type: finalRooms[0].type,
-                    rooms: finalRoomNumbers,
-                    startDate: finalRooms[0].startDate,
-                    endDate: finalRooms[0].endDate,
-                    totalPrice: sessionOrder.amount_total / 100
-                });
+                if (req.isAuthenticated() && req.user.googleId != null) {
+                    await Order.create({
+                        name: sessionOrder.customer_details.name,
+                        email: sessionOrder.customer_details.email,
+                        googleId: req.user.googleId,
+                        adults: adults * rooms,
+                        children: children * rooms,
+                        type: finalRooms[0].type,
+                        rooms: finalRoomNumbers,
+                        startDate: finalRooms[0].startDate,
+                        endDate: finalRooms[0].endDate,
+                        totalPrice: sessionOrder.amount_total / 100
+                    });
+                } else {
+                    await Order.create({
+                        name: sessionOrder.customer_details.name,
+                        email: sessionOrder.customer_details.email,
+                        adults: adults * rooms,
+                        children: children * rooms,
+                        type: finalRooms[0].type,
+                        rooms: finalRoomNumbers,
+                        startDate: finalRooms[0].startDate,
+                        endDate: finalRooms[0].endDate,
+                        totalPrice: sessionOrder.amount_total / 100
+                    });
+                }
+                
             }
         }
 
