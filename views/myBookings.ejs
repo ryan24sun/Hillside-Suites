@@ -124,7 +124,49 @@
                                 <p class="card-text"><%= "  Check out Date: " + orders[i].endDate %></p>
                                 <h3 class="card-text">Total: <span class="bookingSmallTitle"><%= "$" + orders[i].totalPrice %></span></h3>
 
-                                <a href="" class="cancelBtn btn btn-dark btn-md">Cancel Booking</a>
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-dark btn-md cancelBtn" data-bs-toggle="modal" data-bs-target="<%= "#cancelModal" + i %>">
+                                    Cancel Booking
+                                </button>
+                                
+                                <!-- Modal Warning -->
+                                <div class="modal fade" id="<%= "cancelModal" + i %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Cancel Your Booking</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                            Are you sure you want to cancel your hotel booking?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                <form action="/cancel" method="post">
+                                                    <button type="submit" value="<%= orders[i]._id %>" name="cancelBtn" class="btn btn-primary" data-bs-target="#cancelConfirmation" data-bs-toggle="modal">Cancel my Booking</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal Confirmation of Cancellation -->
+                                <div class="modal fade" id="cancelConfirmation" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                      <div class="modal-content">
+                                        <div class="modal-header">
+                                          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Booking Cancelled</h1>
+                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                          We are sorry to see you go. You will be given a full refund shortly.
+                                        </div>
+                                        <div class="modal-footer">
+                                          <a href="myBookings" class="btn btn-primary">Close</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -141,7 +183,13 @@
             <p class="footerText">Hillside Suites</p>
 
           </footer>
-          
+
+        <script>
+            //Listen for when Modal is closed to redirect user
+            document.getElementById("cancelConfirmation").addEventListener("hidden.bs.modal", function () {
+                window.location.href = "myBookings";
+            });
+        </script>
       </body>
         
   </html>

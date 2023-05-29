@@ -335,6 +335,37 @@ app.get("/myBookings", async function(req, res){
     }
 });
 
+//Post route to cancel a booking
+app.post("/cancel", async function(req, res){
+    const cancelledRoomId = req.body.cancelBtn;
+    console.log(cancelledRoomId);
+
+    //Obtain info from order being deleted in database
+    const cancelledRoom = await Order.findOne({ _id: cancelledRoomId });
+            
+    //Deletes order from database
+    Order.deleteOne({ _id: cancelledRoomId })
+    .then(function() {
+        console.log("order successfully deleted");        
+
+        //Deletes booked dates from corresponding rooms
+        for (let i = 0; i < cancelledRoom.rooms.length; i++) {
+            Room.updateOne({ roomNumber: cancelledRoom.rooms[i].roomNumber }, { $pull: { dates: {startDate: cancelledRoom.startDate, endDate: cancelledRoom.endDate} } })
+            .then(function() {
+                console.log("date " + i + " successfully deleted");
+            })
+            .catch(function(error) {
+                console.log(error);
+            })
+        }
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+
+    
+});
+
 //Register Page
 app.post("/register", async function(req, res){
 
@@ -651,10 +682,13 @@ function checkRooms(arrivalDate, departureDate, roomType) {
 }
 
 //Form submission to calculate available rooms
-app.post("/reserve", function(req, res){
+app.post("/reserve", async function(req, res){
 
-    // Room.deleteMany({}, function(error) {
-    // });
+    // const delete1 = await Room.deleteMany({});
+    // console.log(delete1);
+
+    // const delete2 = await Order.deleteMany({});
+    // console.log(delete2);
 
     roomsFilled = [];
     checkoutRooms = [];
