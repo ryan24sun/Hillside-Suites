@@ -70,6 +70,15 @@
 
           <div class="spacer"></div>
 
+          <% if (registerFailedAttempt) { %>
+            <div class="jumbotron-fluid alert alert-danger successJumbo">
+              <h2 class="display-4 reserveErrorHeader">Register Error</h2>
+              <p class="lead reserveErrorText">The email you entered already has an account.</p>
+              <hr class="registerFailedAttemptLine">
+              <a href="signIn" class="btn btn-dark btn-lg">Sign in</a>
+            </div>
+          <% } %>
+
           <div class="row justify-content-center">
             <div class="col col-8">
 

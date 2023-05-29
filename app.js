@@ -296,9 +296,12 @@ app.get("/auth/google/myBookings",
         res.redirect("/myBookings");
     });
 
+var registerFailedAttempt = false;
+
 app.get("/register", function(req, res){
     if (!(req.isAuthenticated())) {
-        res.render("register.ejs");
+        res.render("register.ejs", {registerFailedAttempt});
+        registerFailedAttempt = false;
     } else {
         res.redirect("/");
     }
@@ -367,9 +370,11 @@ app.post("/register", async function(req, res){
     User.register({username: req.body.username}, req.body.password, function(err, user){
         if (err) {
             console.log(err);
+            registerFailedAttempt = true;
             res.redirect("/register");
         } else {
             passport.authenticate("local")(req, res, function(){
+                registerFailedAttempt = false;
                 res.redirect("/myBookings");
             });
         }

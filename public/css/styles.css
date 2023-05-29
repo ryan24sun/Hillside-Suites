@@ -714,6 +714,11 @@ small {
     margin-right: 5px;
 }
 
+.registerFailedAttemptLine {
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 /* my Bookings */
 .bookingsSection {
     padding: 7% 10%;
