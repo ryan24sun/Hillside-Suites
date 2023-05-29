@@ -185,7 +185,30 @@ const Order = mongoose.model("Order", ordersSchema);
 const usersSchema = new mongoose.Schema ({
     email: String,
     password: String,
-    googleId: String
+    googleId: String,
+    newRooms: [{ 
+        type: {
+            type: String
+          },
+        doubles: Number,
+        queens: Number,
+        kings: Number,
+        description: String,
+        price: Number,
+        image: String,
+        rooms: Number
+    }],
+    checkoutRooms: [{
+        type: {
+            type: String
+          },
+        roomNumber: Number,
+        startDate: String,
+        endDate: String,
+        adults: Number,
+        children: Number,
+        price: Number
+    }]
 });
 
 usersSchema.plugin(passportLocalMongoose);
@@ -262,8 +285,33 @@ var checkoutRooms = [];
 
 app.get("/reserve" || "/book" || "/booknow", async function(req, res){
     // Uses database info to fill the reserve page
-    const availableRooms = await RoomType.find();
-    res.render("reserve.ejs", {bookingError, availableRooms: availableRooms});
+    if (req.isAuthenticated()) {
+        if (req.user.googleId != null) {
+            const availableRooms = await User.find({ googleId: req.user.googleId });
+            console.log("available rooms");
+            console.log(availableRooms);
+            console.log(availableRooms[0].newRooms);
+            if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
+                const availableRooms2 = await RoomType.find();
+                console.log("availablerooms2");
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2 });
+            } else {
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms });
+            }
+        } else {
+            const availableRooms = await User.find({ username: req.user.username });
+            if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
+                const availableRooms2 = await RoomType.find();
+                res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2});
+            } else {
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms });
+            }
+        }
+    } else {
+        const availableRooms = await RoomType.find();
+        res.render("reserve.ejs", {bookingError, availableRooms: availableRooms});
+    }
+    
 });
 
 const mapKey = process.env.MAPS_KEY
@@ -272,7 +320,16 @@ app.get("/amenities", function(req, res){
     res.render("amenities.ejs", {mapKey});
 });
 
-app.get("/checkout", function(req, res){
+app.get("/checkout", async function(req, res){
+    if (req.isAuthenticated()) {
+        if (req.user.googleId != null) {
+            const tempCheckoutRooms = await User.findOne({ googleId: req.user.googleId });
+            checkoutRooms = tempCheckoutRooms[0].checkoutRooms;
+        } else {
+            const tempCheckoutRooms = await User.findOne({ username: req.user.username });
+            checkoutRooms = tempCheckoutRooms[0].checkoutRooms;
+        }
+    }
     res.render("checkout.ejs", {checkoutRooms});
 });
 
@@ -409,6 +466,23 @@ app.get("/logout", function(req, res){
             console.log(err);
         }
     });
+
+    RoomType.deleteMany({})
+    .then(function() {
+        console.log("available rooms reset");
+        
+        RoomType.insertMany(defaultRooms)
+        .then(function() {
+            console.log("Default rooms restored");
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+
     res.redirect("/");
 });
 
@@ -423,8 +497,6 @@ app.get("/success", async function(req, res){
         const sessionOrder = await stripe.checkout.sessions.retrieve(
             stripeSession.id
         );
-    
-        console.log(sessionOrder);
         
         //Sets comingFromStripe to 2 to represent a payment error
         if (comingFromStripe === 1 && sessionOrder.payment_status === "unpaid") {
@@ -443,6 +515,27 @@ app.get("/success", async function(req, res){
                             console.log(error);
                         })
                 }
+
+                if (req.isAuthenticated()) {
+                    if (req.user.googleId != null) {
+                        User.updateOne({ googleId: req.user.googleId }, { $pullAll: { newRooms: newRooms, checkoutRooms: checkoutRooms }})
+                        .then(function() {
+                            console.log("reset user reserve session");
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                    } else {
+                        User.updateOne({ username: req.user.username }, { $pullAll: { newRooms: newRooms, checkoutRooms: checkoutRooms } })
+                        .then(function() {
+                            console.log("reset user reserve session");
+                        })
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                    }
+                }
+
                 //Restores default reserve ejs page
                 RoomType.deleteMany({}) 
                     .then(function() {
@@ -846,6 +939,27 @@ app.post("/reserve", async function(req, res){
                         })
                         //Rediret to reserve ejs to show results
                         .finally(function() {
+
+                            //Stores user info in database if user is logged in
+                            if (req.isAuthenticated()) {
+                                if (req.user.googleId != null) {
+                                    User.updateOne({ googleId: req.user.googleId }, { newRooms: newRooms, checkoutRooms: checkoutRooms })
+                                    .then(function() {
+                                        console.log("user reserve session info stored in db");
+                                    })
+                                    .catch(function(error) {
+                                        console.log(error);
+                                    })
+                                } else {
+                                    User.updateOne({ username: req.user.username }, { newRooms: newRooms, checkoutRooms: checkoutRooms })
+                                    .then(function() {
+                                        console.log("user reserve session info stored in db");
+                                    })
+                                    .catch(function(error) {
+                                        console.log(error);
+                                    })
+                                }
+                            }
                             res.redirect("/reserve");
                         });
                     })
@@ -869,6 +983,22 @@ app.post(("/pickRoom"), async function(req, res) {
     var checkoutPic;
     //Sets comingFromStripe to 1 to prevent seeing success page without checking out 
     comingFromStripe = 1;
+    if (req.isAuthenticated()) {
+        if (req.user.googleId != null) {
+            const tempUserRooms = await User.findOne({ googleId: req.user.googleId });
+            console.log(tempUserRooms);
+            newRooms = tempUserRooms.newRooms;
+            // console.log("new rooms");
+            // console.log(newRooms);
+            checkoutRooms = tempUserRooms.checkoutRooms;
+            // console.log("checkout rooms");
+            // console.log(checkoutRooms);
+        } else {
+            const tempUserRooms = await User.findOne({ username: req.user.username });
+            newRooms = tempUserRooms.newRooms;
+            checkoutRooms = tempUserRooms.checkoutRooms;
+        }
+    }
 
     //Pushes to final rooms the room type the user selected
     for (let i = 0; i < checkoutRooms.length; i++) {
@@ -887,6 +1017,20 @@ app.post(("/pickRoom"), async function(req, res) {
         }
     }    
 
+    console.log("final rooms");
+    console.log(finalRooms);
+
+    //Uses UTC dates and the getTime method to universally compare dates
+    const testUserStartDate = new Date(finalRooms[0].startDate);
+    var user2StartDate = new Date(Date.UTC(testUserStartDate.getUTCFullYear(), testUserStartDate.getUTCMonth(), testUserStartDate.getUTCDate()));
+    userStartDate = user2StartDate.getTime();
+    
+    const testUserEndDate = new Date(finalRooms[0].endDate);
+    var user2EndDate = new Date(Date.UTC(testUserEndDate.getUTCFullYear(), testUserEndDate.getUTCMonth(), testUserEndDate.getUTCDate()));
+    userEndDate = user2EndDate.getTime();
+
+    totalDays = (userEndDate - userStartDate) / 86400000;
+
     //Create a new Stripe checkout session
     stripeSession = await stripe.checkout.sessions.create({
         line_items: [
@@ -897,11 +1041,11 @@ app.post(("/pickRoom"), async function(req, res) {
                     unit_amount: finalRooms[0].price * 100 * totalDays,
                     product_data: {
                         name: finalRooms[0].type,
-                        description: "Arrival Date: " + arrivalDate + " Departure Date: " + departureDate,
+                        description: "Arrival Date: " + finalRooms[0].startDate + " Departure Date: " + finalRooms[0].endDate,
                         images: [checkoutPic],                        
                     },                    
                 },
-                quantity: rooms,                
+                quantity: finalRooms.length,                
             },
         ],
         mode: "payment",
