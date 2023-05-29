@@ -119,7 +119,6 @@ const defaultRooms = [singleRoom, doubleRoom, tripleRoom, masterSuite];
 const roomsSchema = {
     type: String,
     roomNumber: Number,
-    booked: Boolean,
     dates: [{
         startDate: String,
         endDate: String
@@ -135,7 +134,6 @@ for (let i = 0; i < 10; i++) {
     const singleRoom = new Room({
         type: "Single Room",
         roomNumber: i + 1,
-        booked: false,
     });
     allRooms.push(singleRoom);
 }
@@ -144,7 +142,6 @@ for (let i = 10; i < 20; i++) {
     const doubleRoom = new Room({
         type: "Double Room",
         roomNumber: i + 1,
-        booked: false,
     });
     allRooms.push(doubleRoom);
 }
@@ -153,7 +150,6 @@ for (let i = 20; i < 30; i++) {
     const tripleRoom = new Room({
         type: "Triple Room",
         roomNumber: i + 1,
-        booked: false,
     });
     allRooms.push(tripleRoom);
 }
@@ -162,7 +158,6 @@ for (let i = 30; i < 35; i++) {
     const masterSuite = new Room({
         type: "Master Suite",
         roomNumber: i + 1,
-        booked: false,
     });
     allRooms.push(masterSuite);
 }
@@ -363,7 +358,6 @@ app.post("/cancel", async function(req, res){
         console.log(error);
     })
 
-    
 });
 
 //Register Page
@@ -435,7 +429,7 @@ app.get("/success", async function(req, res){
                 comingFromStripe = 3;
                 //Updates Rooms database for each room the user booked
                 for (let i = 0; i < finalRooms.length; i++) {
-                    Room.updateOne({ roomNumber: finalRooms[i].roomNumber }, { booked: true, $push: {dates: [{ startDate: finalRooms[i].startDate, endDate: finalRooms[i].endDate }]} })
+                    Room.updateOne({ roomNumber: finalRooms[i].roomNumber }, { $push: {dates: [{ startDate: finalRooms[i].startDate, endDate: finalRooms[i].endDate }]} })
                         .then(function() {
                             console.log("Rooms booked!");
                         })
@@ -626,7 +620,7 @@ function checkRooms(arrivalDate, departureDate, roomType) {
             //Checks each room until it finds one that is vacant
             for (let i = 0; i < rooms.length; i++) {
                 //Finds available room if the room is unbooked
-                if (rooms[i].booked === false) {
+                if (rooms[i].dates === []) {
                     if (!(alreadyChecked(rooms[i].roomNumber))) {
                         console.log("found open slot");
                         console.log(i);
