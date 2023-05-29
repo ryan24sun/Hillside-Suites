@@ -175,7 +175,8 @@ const ordersSchema = {
     }],
     startDate: String,
     endDate: String,
-    totalPrice: Number
+    totalPrice: Number,
+    canceled: Boolean
 }
 
 const Order = mongoose.model("Order", ordersSchema);
@@ -319,10 +320,10 @@ app.get("/myBookings", async function(req, res){
     if (req.isAuthenticated()){
         //Searches for matching orders in database
         if (req.user.username != null) {
-            const matchingOrders = await Order.find({email: req.user.username});
+            const matchingOrders = await Order.find({email: req.user.username, canceled: null});
             res.render("myBookings.ejs", {orders: matchingOrders});
         } else {
-            const matchingOrders = await Order.find({googleId: req.user.googleId});
+            const matchingOrders = await Order.find({googleId: req.user.googleId, canceled: null});
             res.render("myBookings.ejs", {orders: matchingOrders});
         }
     } else {
@@ -332,20 +333,20 @@ app.get("/myBookings", async function(req, res){
 
 //Post route to cancel a booking
 app.post("/cancel", async function(req, res){
-    const cancelledRoomId = req.body.cancelBtn;
-    console.log(cancelledRoomId);
+    const canceledRoomId = req.body.cancelBtn;
+    console.log(canceledRoomId);
 
     //Obtain info from order being deleted in database
-    const cancelledRoom = await Order.findOne({ _id: cancelledRoomId });
+    const canceledRoom = await Order.findOne({ _id: canceledRoomId });
             
     //Deletes order from database
-    Order.deleteOne({ _id: cancelledRoomId })
+    Order.updateOne({ _id: canceledRoomId }, { canceled: true })
     .then(function() {
-        console.log("order successfully deleted");        
+        console.log("order successfully canceled");        
 
         //Deletes booked dates from corresponding rooms
-        for (let i = 0; i < cancelledRoom.rooms.length; i++) {
-            Room.updateOne({ roomNumber: cancelledRoom.rooms[i].roomNumber }, { $pull: { dates: {startDate: cancelledRoom.startDate, endDate: cancelledRoom.endDate} } })
+        for (let i = 0; i < canceledRoom.rooms.length; i++) {
+            Room.updateOne({ roomNumber: canceledRoom.rooms[i].roomNumber }, { $pull: { dates: {startDate: canceledRoom.startDate, endDate: canceledRoom.endDate} } })
             .then(function() {
                 console.log("date " + i + " successfully deleted");
             })
