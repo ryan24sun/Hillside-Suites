@@ -1,15 +1,24 @@
 /* General styling */
 body {
     background-color: #EDE6DB;
-    font-family: 'Montserrat', sans-serif;
+    /* Temp */
+    /* font-family: 'Montserrat', sans-serif; */
+    font-family: 'Rasa', serif;
+    font-weight: light;
+}
+
+.btn {
+    font-family: 'Barlow', sans-serif;
 }
 
 h1 {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Barlow Condensed', sans-serif;
 }
 
 h2 {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Barlow Condensed', sans-serif;
 }
 
 .spacer {
@@ -99,7 +108,9 @@ h2 {
 
 /* Home Page */
 #titleMain {
-    background-image: url(../images/homePic4.jpeg);
+    /* background-image: url(../images/tempHome.jpg); */
+    background-image: url(../images/awesomeHomePic.webp);
+    /* background-image: url(../images/homePic4.jpeg); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -107,12 +118,12 @@ h2 {
     width: auto;
     padding-bottom: 10%;
     max-width: 100%;
-    max-height: 842.72px;
+    /* max-height: 842.72px; */
+    max-height: 1000px;
 }
 
 .titleName {
     padding-top: 30%;
-    font-family: 'Poppins', sans-serif;
     color: rgb(255, 255, 255);
     font-size: 3.5rem;
     padding-bottom: 2%;
@@ -188,7 +199,8 @@ h2 {
 }
 
 .featuresTitle {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
+    font-family: 'Barlow Condensed', sans-serif;
     padding: 1%;
 }
 
@@ -579,7 +591,8 @@ h2 {
 /* Reserve Page */
 
 #titleReserve {
-    background-image: url(../images/reserveFinal.jpg);
+    /* background-image: url(../images/reserveFinal.jpg); */
+    background-image: url(../images/reservePicMaybe.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;

@@ -242,6 +242,35 @@ passport.use(new GoogleStrategy({
   }
 ));
 
+//Temp New Home Page
+app.get("/newHome", async function(req, res){
+    res.render("newIndex.ejs", {authenticated: req.isAuthenticated()});
+
+    //Only adds room types to DB once
+    const foundRooms = await RoomType.find();
+    if (foundRooms.length === 0) {
+        RoomType.insertMany(defaultRooms)
+        .then(function() {
+            console.log("Successfully saved room types to DB.");
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+
+    //Only adds all rooms to DB once
+    const foundRooms2 = await Room.find();
+    if (foundRooms2.length === 0) {
+        Room.insertMany(allRooms)
+        .then(function() {
+            console.log("Successfully saved all rooms to DB.");
+        })
+        .catch(function(error) {
+            console.log(error);
+        })
+    }
+});
+
 //Website Pages
 app.get("/" || "/home", async function(req, res){
     res.render("index.ejs", {authenticated: req.isAuthenticated()});
