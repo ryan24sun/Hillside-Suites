@@ -19,23 +19,19 @@
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Barlow:wght@600&family=Rasa:wght@300&display=swap" rel="stylesheet">
+        
     </head>
 
     <body>
         <section id="titleAmenities">
             <div class="container-fluid">
-              <!-- Nav bar -->
+
+              <!-- nav bar -->
               <nav class="navbar navbar-expand-lg navbar-dark">
                 <a class="navbar-brand" href="/">
-                  <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
+                  <img src="images/HillSide__1_-removebg-preview.png" width="100px" height="100px" class="d-inline-block align-top" alt="logo">
                 </a>
             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
@@ -52,25 +48,43 @@
                     <li class="nav-item">
                       <a class="nav-link" href="about">About</a>
                     </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                      <ul class="dropdown-menu accountBtn"> 
+
+                        <% if (authenticated) { %>
+                          <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
+                          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <% } else { %>
+                          <li><a class="dropdown-item" href="signIn">Sign in</a></li>
+                          <li><a class="dropdown-item" href="register">Register</a></li>
+                        <% } %>           
+                        
+                      </ul>
+                    </li>
                     <li class="nav-item">
-                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">RESERVE</a>
                     </li>
                   </ul>
                 </div>
               </nav>
 
-               <!-- Title for amenities page -->
-              <div class = "titling-body">
-                <div class="row">
-                  <div class="col-lg-5">
-                    <div class = "titleAmenities">
-                      <h1 class = "luxAmen">Hillside Amenities</h1>
-                    </div>
+            </div>
+
+            <!-- Title -->
+            <div class = "titling-body">
+              <div class="row titleSection">
+                <div class="col-lg-5">
+                  <div class = "titleAmenities">
+                    <h1 class = "luxAmen">Hillside Amenities</h1>
                   </div>
                 </div>
               </div>
             </div>
+              
         </section>
+
+
          <!-- Integrated map api here -->
         <div class="spacer"></div>
           <div class = "map-back">
@@ -123,7 +137,7 @@
             </div>
             <div class = "first-amenity-pic">
               <div class = "big-amenity">
-                <img class="big-pic" src="images/entertainment.jpeg" alt="entertainment-amenity">
+                <img class="big-pic" src="images/bar.webp" alt="entertainment-amenity">
               </div>
               <div class = "text-big">
                 <h3 style="font-size: 2vw" class = "in-blue">Enjoy Our World-Class Entertainment. Indulge in bars, concerts, parties, and more. </h3>
@@ -131,7 +145,7 @@
             </div>
             <div class = "second-amenity">
               <div class = "amenities-pic">
-                <img class="amenities2" src="images/dining.jpeg" alt="dining-amenity">
+                <img class="amenities2" src="images/chef.webp" alt="dining-amenity">
               </div>
               <div class = "amenity-desc2">
                 <h3 style="font-size: 2vw" class = "in-blue">We only serve the highest quality food here at Hillside.</h3>

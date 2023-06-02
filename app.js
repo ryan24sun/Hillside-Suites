@@ -301,11 +301,11 @@ app.get("/" || "/home", async function(req, res){
 });
 
 app.get("/accommodations", function(req, res){
-    res.render("accommodations.ejs");
+    res.render("accommodations.ejs", {authenticated: req.isAuthenticated()});
 });
 
 app.get("/about", function(req, res){
-    res.render("about.ejs");
+    res.render("about.ejs", {authenticated: req.isAuthenticated()});
 });
 
 //Sets default booking error (error free)
@@ -338,7 +338,7 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         }
     } else {
         const availableRooms = await RoomType.find();
-        res.render("reserve.ejs", {bookingError, availableRooms: availableRooms});
+        res.render("reserve.ejs", {bookingError, availableRooms: availableRooms, authenticated: req.isAuthenticated()});
     }
     
 });
@@ -346,7 +346,7 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
 const mapKey = process.env.MAPS_KEY
 
 app.get("/amenities", function(req, res){
-    res.render("amenities.ejs", {mapKey});
+    res.render("amenities.ejs", {authenticated: req.isAuthenticated(), mapKey});
 });
 
 app.get("/checkout", async function(req, res){

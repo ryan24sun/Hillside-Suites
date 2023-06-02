@@ -17,8 +17,13 @@
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Barlow:wght@600&family=Rasa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
 
     </head>
 
@@ -47,9 +52,9 @@
                     <li class="nav-item">
                       <a class="nav-link" href="about">About</a>
                     </li>
-                    <li class="nav-item dropdown">
+                    <li class="nav-item">
                       <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
-                      <ul class="dropdown-menu accountBtn"> 
+                      <ul class="dropdown-menu dropdown-menu-end accountBtn"> 
 
                         <% if (authenticated) { %>
                           <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
@@ -62,17 +67,17 @@
                       </ul>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">RESERVE</a>
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
                     </li>
                   </ul>
                 </div>
               </nav>
                 
                 <!-- Title -->
-                <div class="row">
+                <div class="row titleSection">
                   <div class="col-lg-5">
                     <h1 class="titleName">Welcome to Hillside Suites</h1>  
-                    <a href="reserve" type="button" class="btn btn-outline-light btn-lg bookNow">BOOK YOUR STAY</a>
+                    <a href="reserve" type="button" class="btn btn-outline-light btn-lg bookNow">Book Your Stay</a>
                   </div>
                 </div>
 

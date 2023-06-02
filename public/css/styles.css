@@ -1,4 +1,5 @@
 /* General styling */
+
 body {
     background-color: #EDE6DB;
     /* Temp */
@@ -14,6 +15,7 @@ body {
 h1 {
     /* font-family: 'Poppins', sans-serif; */
     font-family: 'Barlow Condensed', sans-serif;
+    font-size: 3rem;
 }
 
 h2 {
@@ -26,6 +28,11 @@ h2 {
 }
 
 .container-fluid {
+    /* padding: 2% 7%; */
+    padding: 0;
+}
+
+.titleSection {
     padding: 2% 7%;
 }
 
@@ -36,8 +43,9 @@ h2 {
 /* Navbar */
 .navbar {
     /* padding: 0 0 4.5rem; */
-    padding: 0;
+    padding: 0.5% 6% 0 2%;
     margin: 0;
+    background: rgba(0, 0, 0, 0.75);
 }
 
 .navbar-brand {
@@ -125,7 +133,7 @@ h2 {
 .titleName {
     padding-top: 30%;
     color: rgb(255, 255, 255);
-    font-size: 3.5rem;
+    font-size: 4rem;
     padding-bottom: 2%;
 }
 
@@ -236,7 +244,9 @@ h2 {
 
 /* Accommodations Page */
 #accommodationMain {
-    background-image: url(../images/d8ab42125604113.611ca9bc57750.jpg);
+    /* background-image: url(../images/d8ab42125604113.611ca9bc57750.jpg); */
+    /* background-image: url(../images/accomodation3.jpg); */
+    background-image: url(../images/maybeAccommodations.png);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -251,9 +261,9 @@ h2 {
 }
 
 .accommodationsName {
-    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Poppins', sans-serif; */
     color: rgb(255, 255, 255);
-    font-size: 2.5rem;
+    /* font-size: 2.5rem; */
 }
 
 .accommodations-title {
@@ -338,9 +348,7 @@ h2 {
     padding-bottom: 5%;
     text-align: center;
     max-width: 400px;
-    font-family: 'Poppins';
     color: rgb(255, 255, 255);
-    font-size: 2.5rem;
     background-color: rgba(29, 92, 99, .7);
     backdrop-filter: blur(10px);
     margin-bottom: 40%;
@@ -402,7 +410,9 @@ h2 {
 
 /* Amenities Page */
 #titleAmenities {
-    background-image: url(../images/copernico-cLmOptqvuFQ-unsplash.jpg);
+    /* background-image: url(../images/copernico-cLmOptqvuFQ-unsplash.jpg); */
+    background-image: url(../images/amenities1.jpg);
+    background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
     height: auto;
@@ -566,9 +576,9 @@ h2 {
     margin-bottom: 20%;
 }
 
-.luxAmen {
+/* .luxAmen {
     font-family: 'Poppins', sans-serif;
-}
+} */
 
 .colored {
     padding-top: 3%;
@@ -609,9 +619,7 @@ h2 {
     padding-bottom: 5%;
     text-align: center;
     max-width: 400px;
-    font-family: 'Poppins';
     color: rgb(255, 255, 255);
-    font-size: 2.5rem;
     background-color: rgba(29, 92, 99, .7);
     backdrop-filter: blur(10px);
 }
