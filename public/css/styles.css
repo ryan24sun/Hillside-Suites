@@ -1,9 +1,26 @@
+/* CSS Transitions */
+
+.hidden {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: all 1s;
+}
+
+@media(prefers-reduced-motion) {
+    .hidden {
+        transition: none;
+    }
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* General styling */
 
 body {
     background-color: #EDE6DB;
-    /* Temp */
-    /* font-family: 'Montserrat', sans-serif; */
     font-family: 'Rasa', serif;
     font-weight: light;
 }
@@ -13,13 +30,11 @@ body {
 }
 
 h1 {
-    /* font-family: 'Poppins', sans-serif; */
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 3rem;
 }
 
 h2 {
-    /* font-family: 'Poppins', sans-serif; */
     font-family: 'Barlow Condensed', sans-serif;
 }
 
@@ -28,7 +43,6 @@ h2 {
 }
 
 .container-fluid {
-    /* padding: 2% 7%; */
     padding: 0;
 }
 
@@ -160,6 +174,7 @@ h2 {
     width: 95%;
     height: 650px;
     object-fit: cover;
+    /* transition-delay: 200ms; */
 }
 
 .roomsPic2 {
@@ -168,6 +183,22 @@ h2 {
     height: 563.56px;
     object-fit: cover;
 }
+
+/* .roomsPic2:nth-child(1) {
+    transition-delay: 200ms;
+    width: 90%;
+    margin: 6% 0;
+    height: 563.56px;
+    object-fit: cover;
+}
+
+.roomsPic2:nth-child(2) {
+    transition-delay: 400ms;
+    width: 90%;
+    margin: 6% 0;
+    height: 563.56px;
+    object-fit: cover;
+} */
 
 .testimonials {
     background-color: #1D5C63;
@@ -199,6 +230,14 @@ h2 {
 
 .features {
     padding: 3%;
+}
+
+.features:nth-child(2) {
+    transition-delay: 200ms;
+}
+
+.features:nth-child(3) {
+    transition-delay: 400ms;
 }
 
 .icon {

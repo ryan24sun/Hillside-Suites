@@ -86,7 +86,7 @@
           <div class="picSection">
 
             <div class="spacer"></div>
-            <h1 class="titleBHome">Hillside: Where Your Greatest Dreams Come True</h1>
+            <h1 class="titleBHome hidden">Hillside: Where Your Greatest Dreams Come True</h1>
             <div class="spacer"></div>
 
             <img class="roomsPic1" src="images/yayaq-destination-ptj2xDWxEJU-unsplash.jpg" alt="spa pic">
@@ -109,17 +109,17 @@
         <section id="info">
           <div class="container-fluid">
             <div class="row">
-              <div class="features col-lg-4">
+              <div class="features col-lg-4 hidden">
                 <i class="icon fa-solid fa-bed"></i>
                 <h3 class="featuresTitle">Beautiful Rooms</h3>
                 <p>Treat yourself to staying at our luxury rooms with state of the art furniture, polished designs, and comfortable beds.</p>
               </div>
-              <div class="features col-lg-4">
+              <div class="features col-lg-4 hidden">
                 <i class="icon fa-solid fa-tree"></i>
                 <h3 class="featuresTitle">Stunning Views</h3>
                 <p>Whether you take a glance from your window or take a step into your spacious balcony, you’ll immerse yourself within nature’s best offerings.</p>
               </div>
-              <div class="features col-lg-4">
+              <div class="features col-lg-4 hidden">
                 <i class="icon fa-solid fa-bell-concierge"></i>
                 <h3 class="featuresTitle">Amazing Service</h3>
                 <p>Our amazing staff are available 24/7. To get in touch, just give us a call from your room telephone!</p>
@@ -179,13 +179,16 @@
 
         <!-- Call to Action -->
         <section id="cta">
-          <h1 class="startNow">Begin Your Journey Today.</h1>
-          <a href="reserve" type="button" class="btn btn-outline-light btn-lg bookNow" data-toggle="modal" data-target="#exampleModalCenter">Book Now</a>
+          <h1 class="startNow hidden">Begin Your Journey Today.</h1>
+          <div class="hidden">
+            <a href="reserve" type="button" class="btn btn-outline-light btn-lg bookNow" data-toggle="modal" data-target="#exampleModalCenter">Book Now</a>
+          </div>
+          
 
-          <h2 class="mail">Join our Mailing List!</h2>
-          <p>Subscribe to receive updates on the latest Hillside Suites news.</p>
+          <h2 class="mail hidden">Join our Mailing List!</h2>
+          <p class="hidden">Subscribe to receive updates on the latest Hillside Suites news.</p>
 
-          <form class="formSection needs-validation" action="/" method="post" novalidate>
+          <form class="formSection needs-validation hidden" action="/" method="post" novalidate>
             <input type="text" name="email" placeholder="email address" class="signUpEmail form-control" required>
             <button type="submit" class="btn btn-outline-light btn-lg">Sign Up</button>
           </form>
@@ -202,6 +205,23 @@
           <p class="footerText">Hillside Suites</p>
 
         </footer>
+
+        <script>
+
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+              } else {
+                entry.target.classList.remove("show");
+              }
+            });
+          });
+
+          const hiddenElements = document.querySelectorAll(".hidden");
+          hiddenElements.forEach((el) => observer.observe(el));
+
+        </script>
         
         <!-- JQuery Script -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
