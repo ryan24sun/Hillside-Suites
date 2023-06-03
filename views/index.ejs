@@ -105,6 +105,28 @@
 
         </section>
 
+        <section id="gallery">
+
+          <div class="spacer"></div>
+
+          <div class="gallerySection">
+
+            <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="0">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/sonnie-hiles-L0BaowhFe4c-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+              <img class="galleryPic" src="images/rhema-kallianpur-jbJ-_hw2yag-unsplash.jpg" alt="gallerypic" draggable="false">
+            </div>
+
+          </div>
+
+          <div class="spacer"></div>
+
+        </section>
+
         <!-- Basic features that we offer in Hillside -->
         <section id="info">
           <div class="container-fluid">
@@ -207,7 +229,8 @@
         </footer>
 
         <script>
-
+          
+          // Add show animation when objects are on the screen
           const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
@@ -220,6 +243,53 @@
 
           const hiddenElements = document.querySelectorAll(".hidden");
           hiddenElements.forEach((el) => observer.observe(el));
+
+          // Code for gallery of images
+          const track = document.getElementById("imageTrack");
+
+          const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+
+          const handleOnUp = () => {
+            track.dataset.mouseDownAt = "0";  
+            track.dataset.prevPercentage = track.dataset.percentage;
+          }
+
+          const handleOnMove = e => {
+            if(track.dataset.mouseDownAt === "0") return;
+            
+            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+                  maxDelta = window.innerWidth / 2;
+            
+            const percentage = (mouseDelta / maxDelta) * -100,
+                  nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+                  nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+            
+            track.dataset.percentage = nextPercentage;
+            
+            track.animate({
+              transform: `translate(${nextPercentage}%, 0%)`
+            }, { duration: 1200, fill: "forwards" });
+            
+            for(const image of track.getElementsByClassName("galleryPic")) {
+              image.animate({
+                objectPosition: `${100 + nextPercentage}% center`
+              }, { duration: 1200, fill: "forwards" });
+            }
+          }
+
+          /* -- touch events -- */
+
+          window.onmousedown = e => handleOnDown(e);
+
+          window.ontouchstart = e => handleOnDown(e.touches[0]);
+
+          window.onmouseup = e => handleOnUp(e);
+
+          window.ontouchend = e => handleOnUp(e.touches[0]);
+
+          window.onmousemove = e => handleOnMove(e);
+
+          window.ontouchmove = e => handleOnMove(e.touches[0]);
 
         </script>
         

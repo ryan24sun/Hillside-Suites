@@ -174,7 +174,6 @@ h2 {
     width: 95%;
     height: 650px;
     object-fit: cover;
-    /* transition-delay: 200ms; */
 }
 
 .roomsPic2 {
@@ -184,21 +183,27 @@ h2 {
     object-fit: cover;
 }
 
-/* .roomsPic2:nth-child(1) {
-    transition-delay: 200ms;
-    width: 90%;
-    margin: 6% 0;
-    height: 563.56px;
-    object-fit: cover;
+.gallerySection {
+    height: 80vh;
+    margin: 0rem;
+    overflow: hidden;
 }
 
-.roomsPic2:nth-child(2) {
-    transition-delay: 400ms;
-    width: 90%;
-    margin: 6% 0;
-    height: 563.56px;
+#imageTrack {
+    display: flex;
+    gap: 4vmin;
+    position: relative;
+    left: 30%;
+    transform: translate(0%, 0%);
+    user-select: none;
+}
+
+.galleryPic {
+    width: 40vmin;
+    height: 56vmin;
     object-fit: cover;
-} */
+    object-position: 100% center;
+}
 
 .testimonials {
     background-color: #1D5C63;
