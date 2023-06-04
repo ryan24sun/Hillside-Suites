@@ -144,11 +144,23 @@ h2 {
     max-height: 1000px;
 }
 
+.homeIntro {
+    margin-top: 12%; 
+}
+
 .titleName {
     padding-top: 30%;
     color: rgb(255, 255, 255);
     font-size: 4rem;
     padding-bottom: 2%;
+}
+
+.titleNameHome {
+    padding-top: 30%;
+    color: rgb(255, 255, 255);
+    font-size: 4rem;
+    padding-bottom: 2%;
+    max-width: 1000px;
 }
 
 .subtitleName {
@@ -577,7 +589,7 @@ h2 {
 }
 
 .first-amenity {
-    margin-bottom: -25%;
+    margin-bottom: -20%;
 }
 
 .second-amenity {
@@ -620,7 +632,12 @@ h2 {
     object-fit: cover;
 }
 
+.big-amenity {
+    margin-bottom: 5%;
+}
+
 .big-amenity2 {
+    margin-top: 5%; 
     margin-bottom: -15%;
 }
 
@@ -638,7 +655,7 @@ h2 {
 
 .amenity-desc {
     background-color: #1D5C63;
-    transform: translate(170%, -240%);
+    transform: translate(170%, -260%);
     width: 30%;
     height: 30%;
     padding: 5%;
