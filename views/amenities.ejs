@@ -170,6 +170,22 @@
             <p class="footerText">Hillside Suites</p>
 
           </footer>
+
+          <script>
+            // Add show animation when objects are on the screen
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("show");
+                } else {
+                  entry.target.classList.remove("show");
+                }
+              });
+            });
+
+            const hiddenElements = document.querySelectorAll(".hidden");
+            hiddenElements.forEach((el) => observer.observe(el));
+          </script>
   
     </body>    
 </html>
