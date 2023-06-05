@@ -86,7 +86,7 @@
             <div class="mission row">
               <div class>
                 <h1 class = "missionTitle">Our Mission</h1>
-                <p class = "missionText">At Hillside Suites, our mission is to provide luxury accommodations and services during each guest’s stay. Our hotel focuses on our guests and maximizing their enjoyment at their stay at Hillside Suites. Most importantly, we emphasize the need for outstanding hotel service to provide for the best experience possible.</p>
+                <p class = "hidden missionText">At Hillside Suites, our mission is to provide luxury accommodations and services during each guest’s stay. Our hotel focuses on our guests and maximizing their enjoyment at their stay at Hillside Suites. Most importantly, we emphasize the need for outstanding hotel service to provide for the best experience possible.</p>
               </div>
             </div>
 
@@ -97,7 +97,7 @@
 
             <!-- Aarav's profile -->
             <div class="row">
-              <div class="col-lg-4">
+              <div class="hidden profile col-lg-4">
                 <div class="aboutCards card">
                   <img src="images/aarav.jpg" class="aboutPic card-img-top" alt="Aarav">
                   <div class="card-body">
@@ -109,7 +109,7 @@
               </div>
 
               <!-- Havish's profile -->
-              <div class="col-lg-4 col-md-6">
+              <div class="hidden profile col-lg-4 col-md-6">
                 <div class="aboutCards card">
                   <img src="images/havishSuitFinal.png" class="aboutPic card-img-top" alt="Havish">
                   <div class="card-body">
@@ -121,7 +121,7 @@
               </div>
 
               <!-- Ryan's profile -->
-              <div class="col-lg-4 col-md-6">
+              <div class="hidden profile col-lg-4 col-md-6">
                 <div class="aboutCards card">
                   <img src="images/ryanFinal.jpg" class="aboutPic card-img-top" alt="Ryan">
                   <div class="card-body">
@@ -392,5 +392,70 @@
             <p class="footerText">Hillside Suites</p>
   
           </footer>
+
+          <script>
+          
+            // Add show animation when objects are on the screen
+            const observer = new IntersectionObserver((entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("show");
+                } else {
+                  entry.target.classList.remove("show");
+                }
+              });
+            });
+  
+            const hiddenElements = document.querySelectorAll(".hidden");
+            hiddenElements.forEach((el) => observer.observe(el));
+  
+            // Code for gallery of images
+            const track = document.getElementById("imageTrack");
+  
+            const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+  
+            const handleOnUp = () => {
+              track.dataset.mouseDownAt = "0";  
+              track.dataset.prevPercentage = track.dataset.percentage;
+            }
+  
+            const handleOnMove = e => {
+              if(track.dataset.mouseDownAt === "0") return;
+              
+              const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+                    maxDelta = window.innerWidth / 2;
+              
+              const percentage = (mouseDelta / maxDelta) * -100,
+                    nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+                    nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+              
+              track.dataset.percentage = nextPercentage;
+              
+              track.animate({
+                transform: `translate(${nextPercentage}%, 0%)`
+              }, { duration: 1200, fill: "forwards" });
+              
+              for(const image of track.getElementsByClassName("galleryPic")) {
+                image.animate({
+                  objectPosition: `${100 + nextPercentage}% center`
+                }, { duration: 1200, fill: "forwards" });
+              }
+            }
+  
+            /* -- touch events -- */
+  
+            window.onmousedown = e => handleOnDown(e);
+  
+            window.ontouchstart = e => handleOnDown(e.touches[0]);
+  
+            window.onmouseup = e => handleOnUp(e);
+  
+            window.ontouchend = e => handleOnUp(e.touches[0]);
+  
+            window.onmousemove = e => handleOnMove(e);
+  
+            window.ontouchmove = e => handleOnMove(e.touches[0]);
+  
+          </script>
     </body>
 </html>
