@@ -90,14 +90,16 @@
 
             <h1 class="hidden galleryTitle">Hillside: Where Your Greatest Dreams Come True</h1>
 
-            <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="0">
-              <img class="galleryPic" src="images/gallery3.png" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/gallery2.jpg" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/RECEPTION-LOBBY.jpg" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/gallery5.jpg" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/gallery6.jpg" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/dan-gold-4HG3Ca3EzWw-unsplash.jpg" alt="gallerypic" draggable="false">
-              <img class="galleryPic" src="images/gallery9.jpg" alt="gallerypic" draggable="false">
+            <div id="galleryScrollSection">
+              <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="-29" data-mouse-left="0">
+                <img class="galleryPic" src="images/gallery3.png" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/gallery2.jpg" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/RECEPTION-LOBBY.jpg" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/gallery5.jpg" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/gallery6.jpg" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/dan-gold-4HG3Ca3EzWw-unsplash.jpg" alt="gallerypic" draggable="false">
+                <img class="galleryPic" src="images/gallery9.jpg" alt="gallerypic" draggable="false">
+              </div>
             </div>
 
           </div>
@@ -257,16 +259,31 @@
 
           // Code for gallery of images
           const track = document.getElementById("imageTrack");
+          const scrollTrack = document.getElementById("galleryScrollSection");
 
-          const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
-
-          const handleOnUp = () => {
-            track.dataset.mouseDownAt = "0";  
-            track.dataset.prevPercentage = track.dataset.percentage;
+          track.style.transform = `translate(-29%, 0%)`;
+          for(const image of track.getElementsByClassName("galleryPic")) {
+            image.style.objectPosition = `71% center`;
           }
 
-          const handleOnMove = e => {
-            if(track.dataset.mouseDownAt === "0") return;
+          scrollTrack.addEventListener("mousedown", e => {
+            track.dataset.mouseDownAt = e.clientX
+            track.dataset.mouseLeft = "0";
+          });
+
+          scrollTrack.addEventListener("mouseup", () => {
+            track.dataset.mouseDownAt = "0";  
+            track.dataset.prevPercentage = track.dataset.percentage;
+          });
+
+          // Prevents user from dragging mouse leaving scroll track and glitching animation
+          scrollTrack.addEventListener("mouseleave", () => {
+            track.dataset.mouseLeft = "1";
+          })
+
+          scrollTrack.addEventListener("mousemove", e => {
+            if (track.dataset.mouseDownAt === "0") return;
+            if (track.dataset.mouseLeft === "1") return;
             
             const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
                   maxDelta = window.innerWidth / 2;
@@ -286,21 +303,51 @@
                 objectPosition: `${100 + nextPercentage}% center`
               }, { duration: 1200, fill: "forwards" });
             }
-          }
+          });
+
+          // const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+
+          // const handleOnUp = () => {
+          //   track.dataset.mouseDownAt = "0";  
+          //   track.dataset.prevPercentage = track.dataset.percentage;
+          // }
+
+          // const handleOnMove = e => {
+          //   if(track.dataset.mouseDownAt === "0") return;
+            
+          //   const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+          //         maxDelta = window.innerWidth / 2;
+            
+          //   const percentage = (mouseDelta / maxDelta) * -100,
+          //         nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+          //         nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+            
+          //   track.dataset.percentage = nextPercentage;
+            
+          //   track.animate({
+          //     transform: `translate(${nextPercentage}%, 0%)`
+          //   }, { duration: 1200, fill: "forwards" });
+            
+          //   for(const image of track.getElementsByClassName("galleryPic")) {
+          //     image.animate({
+          //       objectPosition: `${100 + nextPercentage}% center`
+          //     }, { duration: 1200, fill: "forwards" });
+          //   }
+          // }
 
           /* -- touch events -- */
 
-          window.onmousedown = e => handleOnDown(e);
+          // window.onmousedown = e => handleOnDown(e);
 
-          window.ontouchstart = e => handleOnDown(e.touches[0]);
+          // window.ontouchstart = e => handleOnDown(e.touches[0]);
 
-          window.onmouseup = e => handleOnUp(e);
+          // window.onmouseup = e => handleOnUp(e);
 
-          window.ontouchend = e => handleOnUp(e.touches[0]);
+          // window.ontouchend = e => handleOnUp(e.touches[0]);
 
-          window.onmousemove = e => handleOnMove(e);
+          // window.onmousemove = e => handleOnMove(e);
 
-          window.ontouchmove = e => handleOnMove(e.touches[0]);
+          // window.ontouchmove = e => handleOnMove(e.touches[0]);
 
         </script>
         

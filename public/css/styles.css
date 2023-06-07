@@ -186,7 +186,7 @@ h2 {
     width: 95%;
     height: 650px;
     object-fit: cover;
-    margin: 6% 0;
+    /* margin: 6% 0; */
 }
 
 .roomsPic2 {
@@ -202,6 +202,7 @@ h2 {
     object-fit: cover;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
 .picDiv {
@@ -311,9 +312,10 @@ h2 {
     display: flex;
     gap: 4vmin;
     position: relative;
-    left: 25%;
+    left: 50%;
     transform: translate(0%, 5%);
     user-select: none;
+    width: 304vmin;
 }
 
 .galleryPic {
