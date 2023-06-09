@@ -302,7 +302,7 @@ h2 {
 
 .gallerySection {
     /* height: 70vh; */
-    height: 70%;
+    /* height: 70%; */
     margin: 0rem;
     overflow: hidden;
     z-index: 5;
@@ -321,11 +321,31 @@ h2 {
 .galleryPic {
     width: 40vmin;
     height: 56vmin;
-    /* width: 40vw;
-    height: 56vh; */
     object-fit: cover;
     object-position: 100% center;
     min-height: 300px;
+}
+
+.hiddenGalleryPic {
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 1s;
+}
+
+.hiddenGalleryPic:nth-child(2) {
+    transition-delay: 150ms;
+}
+
+.hiddenGalleryPic:nth-child(3) {
+    transition-delay: 300ms;
+}
+
+.hiddenGalleryPic:nth-child(4) {
+    transition-delay: 450ms;
+}
+
+.hiddenGalleryPic:nth-child(5) {
+    transition-delay: 600ms;
 }
 
 .testimonials {
