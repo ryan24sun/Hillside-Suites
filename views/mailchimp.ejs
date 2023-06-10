@@ -19,49 +19,60 @@
 
           <!-- Google Fonts -->
           <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.googleapis.com">
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap" rel="stylesheet">
-
-          <link rel="preconnect" href="https://fonts.googleapis.com">
-          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-          <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
-
+          <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Barlow:wght@600&family=Rasa:wght@300&display=swap" rel="stylesheet">
       </head>
 
       <body>
           
           <section id="titleMain">
-              <div class="container-fluid">
-                  
-                  <!-- nav bar -->
-                  <nav class="navbar navbar-expand-lg navbar-dark">
-                    <a class="navbar-brand" href="/">
-                      <img src="images/HillsideLogoFinal.png" width="130" height="130" class="d-inline-block align-top" alt="logo">
-                    </a>
+            <div class="container-fluid">
                 
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
-                      <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarToggler01">
-                      <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                          <a class="nav-link" href="amenities">Amenities</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="accommodations">Accommodations</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="about">About</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">Reserve</a>
-                        </li>
-                      </ul>
-                    </div>
-                  </nav>
+              <!-- nav bar -->
+              <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="/">
+                  <img src="images/HillSide__1_-removebg-preview.png" width="100px" height="100px" class="d-inline-block align-top" alt="logo">
+                </a>
+            
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler01">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="amenities">Amenities</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="accommodations">Accommodations</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="about">About</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
+                      <ul class="dropdown-menu accountBtn"> 
 
-              </div>
+                        <% if (authenticated) { %>
+                          <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
+                          <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                        <% } else { %>
+                          <li><a class="dropdown-item" href="signIn">Sign in</a></li>
+                          <li><a class="dropdown-item" href="register">Register</a></li>
+                        <% } %>           
+                        
+                      </ul>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link navBtn btn btn-custom btn-sm" href="reserve">RESERVE</a>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+
+              <!-- Title -->
+              <div class = "titleIntro"></div>
+
+            </div>
 
           </section>
 

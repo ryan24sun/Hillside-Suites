@@ -50,6 +50,10 @@ h2 {
     padding: 2% 7%;
 }
 
+.titleIntro {
+    margin-top: 15%;
+}
+
 .row {
     max-width: 100%;
 }
@@ -944,6 +948,15 @@ small {
     margin-bottom: 2%;
 }
 
+.btn-google {
+    margin-bottom: 20px;
+}
+
+.adminBtn {
+    color: black;
+    text-decoration: none;
+}
+
 /* my Bookings */
 .bookingsSection {
     padding: 7% 10%;
@@ -965,4 +978,22 @@ small {
 
 .ordersCard {
     margin-bottom: 4%;
+}
+
+/* Admin Page */
+.adminSection {
+    padding: 3% 8%;
+}
+
+.adminTitle {
+    text-align: center;
+    margin-bottom: 3%;
+}
+
+.adminCard {
+    margin: 7px;
+}
+
+.adminUserSection {
+    padding: 3% 15%;
 }

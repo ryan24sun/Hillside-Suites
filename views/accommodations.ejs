@@ -86,7 +86,7 @@
         <section id="accommodationDescriptions">
             <div class="row">
                 <div class="generalDescription">
-                    <p class="description">Plunge yourself into any of our luxury rooms, ranging from a single room with one queen bed to a master suite with three beds.</p>
+                    <p class="hidden description">Plunge yourself into any of our luxury rooms, ranging from a single room with one queen bed to a master suite with three beds.</p>
                 </div>
 
                 <!-- Single Room -->
@@ -94,10 +94,13 @@
                     <img class="singleRoom" src="images/singleRoomMostFinal.jpg" alt="singleRoom">
                 </div>
                 <div class="sideDescription col-lg-6 order-lg-2">
-                    <h2>Single Room</h2>
-                    <p class="beds">1 Queen</p>
-                    <p class="description">Enjoy your stay in one of our single rooms at Hillside Suites, with a queen bed, a TV, a couch, and a desk.</p>
-                    <a class="btn btn-lg btn-dark" href="reserve">Book Now</a>
+                    <h2 class="hidden">Single Room</h2>
+                    <p class="hidden beds">1 Queen</p>
+                    <p class="hidden description">Enjoy your stay in one of our single rooms at Hillside Suites, with a queen bed, a TV, a couch, and a desk.</p>
+                    <div class="hidden">
+                      <a class="btn btn-lg btn-dark" href="reserve">Book Now</a>
+                    </div>
+                    
                 </div>
 
                 <!-- Double Room -->
@@ -105,10 +108,12 @@
                     <img class="descriptionPic" src="images/doubleRoomFINAL.jpg" alt="doubleRoom">
                 </div>
                 <div class="doubleRoom sideDescription col-lg-6 order-lg-3">
-                    <h2>Double Room</h2>
-                    <p class="darkBeds">2 Doubles</p>
-                    <p class="description">Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a couch, and a desk.</p>
-                    <a class="btn btn-lg btn-outline-light" href="reserve">Book Now</a>
+                    <h2 class="hidden">Double Room</h2>
+                    <p class="hidden darkBeds">2 Doubles</p>
+                    <p class="hidden description">Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a couch, and a desk.</p>
+                    <div class="hidden">
+                      <a class="btn btn-lg btn-outline-light" href="reserve">Book Now</a>
+                    </div>
                 </div>
             </div>
 
@@ -150,7 +155,23 @@
             <i class="fa-duotone fa-bed-front"></i>
             <p class="footerText">Hillside Suites</p>
             
-          </footer>
+        </footer>
+
+        <script>
+          // Add show animation when objects are on the screen
+          const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+              } else {
+                entry.target.classList.remove("show");
+              }
+            });
+          });
+
+          const hiddenElements = document.querySelectorAll(".hidden");
+          hiddenElements.forEach((el) => observer.observe(el));
+        </script>
 
     </body>
 </html>

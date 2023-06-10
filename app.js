@@ -183,6 +183,7 @@ const Order = mongoose.model("Order", ordersSchema);
 
 //Accounts Database
 const usersSchema = new mongoose.Schema ({
+    admin: Boolean,
     email: String,
     password: String,
     googleId: String,
@@ -323,17 +324,17 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
                 const availableRooms2 = await RoomType.find();
                 console.log("availablerooms2");
-                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2 });
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
             } else {
-                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms });
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms, authenticated: req.isAuthenticated() });
             }
         } else {
             const availableRooms = await User.find({ username: req.user.username });
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
                 const availableRooms2 = await RoomType.find();
-                res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2});
+                res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated()});
             } else {
-                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms });
+                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms, authenticated: req.isAuthenticated() });
             }
         }
     } else {
@@ -368,7 +369,7 @@ app.get("/mailchimp", function(req, res){
     if (mailchimpSuccess === 0) {
         res.redirect("/");
     } else {
-        res.render("mailchimp.ejs", {mailchimpSuccess});
+        res.render("mailchimp.ejs", {mailchimpSuccess, authenticated: req.isAuthenticated()});
     }
 });
 
@@ -386,7 +387,7 @@ var registerFailedAttempt = false;
 
 app.get("/register", function(req, res){
     if (!(req.isAuthenticated())) {
-        res.render("register.ejs", {registerFailedAttempt});
+        res.render("register.ejs", {registerFailedAttempt, authenticated: req.isAuthenticated()});
         registerFailedAttempt = false;
     } else {
         res.redirect("/");
@@ -397,7 +398,7 @@ var failedAttempt = false;
 
 app.get("/signIn", function(req, res){
     if (!(req.isAuthenticated())) {
-        res.render("signIn.ejs", {failedAttempt});
+        res.render("signIn.ejs", {failedAttempt, authenticated: req.isAuthenticated()});
         failedAttempt = false;
     } else {
         res.redirect("/");
@@ -410,13 +411,28 @@ app.get("/myBookings", async function(req, res){
         //Searches for matching orders in database
         if (req.user.username != null) {
             const matchingOrders = await Order.find({email: req.user.username, canceled: null});
-            res.render("myBookings.ejs", {orders: matchingOrders});
+            res.render("myBookings.ejs", {orders: matchingOrders, authenticated: req.isAuthenticated()});
         } else {
             const matchingOrders = await Order.find({googleId: req.user.googleId, canceled: null});
-            res.render("myBookings.ejs", {orders: matchingOrders});
+            res.render("myBookings.ejs", {orders: matchingOrders, authenticated: req.isAuthenticated()});
         }
     } else {
         res.redirect("/signIn");
+    }
+});
+
+app.get("/admin", async function(req, res){
+    if (req.isAuthenticated()) {
+        if (req.user.admin) {
+            const rooms = await Room.find({});
+            const orders = await Order.find({});
+            const users = await User.find({});
+            res.render("admin.ejs", {authenticated: req.isAuthenticated(), rooms, orders, users});
+        } else {
+            res.redirect("/");
+        }
+    } else {
+        res.redirect("/");
     }
 });
 
@@ -482,7 +498,11 @@ app.post("/signIn", async function(req, res){
             failedAttempt = true;
             passport.authenticate("local", {failureRedirect: "/signIn"})(req, res, function(){
                 failedAttempt = false;
-                res.redirect("/myBookings");
+                if (req.user.admin) {
+                    res.redirect("/admin");
+                } else {
+                    res.redirect("/myBookings");
+                }
             });
         }
     });
@@ -626,7 +646,7 @@ app.get("/success", async function(req, res){
             }
         }
 
-        res.render("success.ejs", {comingFromStripe});
+        res.render("success.ejs", {comingFromStripe, authenticated: req.isAuthenticated()});
     }    
 });
 
