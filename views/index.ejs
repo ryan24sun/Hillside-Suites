@@ -355,7 +355,7 @@
             if (track.dataset.mouseDownAt === "0") return;
             if (track.dataset.mouseLeft === "1") return;
             
-            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+            const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.touches[0].clientX,
                   maxDelta = window.innerWidth / 2;
             
             const percentage = (mouseDelta / maxDelta) * -100,
