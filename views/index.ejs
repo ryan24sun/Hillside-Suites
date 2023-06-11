@@ -306,7 +306,7 @@
 
           //Alternative for mobile use
           scrollTrack.addEventListener("touchstart", e => {
-            track.dataset.mouseDownAt = e.clientX
+            track.dataset.mouseDownAt = e.touches[0].clientX;
             track.dataset.mouseLeft = "0";
           });
 
