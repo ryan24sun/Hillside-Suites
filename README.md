@@ -1,5 +1,5 @@
 # Hillside Suites
-Havish Boda, Aarav Mulinti, and Ryan Sun f
+Havish Boda, Aarav Mulinti, and Ryan Sun
 
 # Abstract
 Welcome to Hillside Suites, a luxurious hotel located in the beautiful town of Montville, New Jersey. Our hotel is designed with a modern look and is surrounded by lush greenery to create a relaxing and refreshing experience for our guests.
