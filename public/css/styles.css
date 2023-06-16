@@ -287,18 +287,6 @@ h2 {
     }
 }
 
-/* @media (max-width: 750px) {
-    .gallerySection {
-        height: 30%;
-    }
-}
-
-@media (max-width: 700px) {
-    .gallerySection {
-        height: 10%;
-    }
-} */
-
 .galleryTitle {
     text-align: center;
     padding: 1% 4% 2% 4%;
@@ -481,6 +469,7 @@ h2 {
 .generalDescription {
     text-align: center;
     padding: 6% 15%;
+    margin-top: 3%;
 }
 
 .description {
@@ -515,9 +504,17 @@ h2 {
     padding: 6% 5%;
 }
 
+@media (max-width: 991px) {
+    .sideDescription {
+        padding: 6% 10%;
+    }
+}
+
 .doubleRoom {
     background-color: #1D5C63;
     color: white;
+    max-height: 700px;
+    object-fit: cover;
 }
 
 .masterSuite {

@@ -85,7 +85,7 @@ const doubleRoom = new RoomType({
     kings: 0,
     description: "Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a TV, a couch, and a desk.",
     price: 235,
-    image: "https://www.nh-hotels.com/corporate/assets/uploads/2022/11/17175816/hotels-design-_int_6_green-rooms.jpg",
+    image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
     rooms: rooms
 });
 
@@ -928,7 +928,7 @@ app.post("/reserve", async function(req, res){
                             kings: 0,
                             description: "Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a TV, a couch, and a desk.",
                             price: 235,
-                            image: "https://www.nh-hotels.com/corporate/assets/uploads/2022/11/17175816/hotels-design-_int_6_green-rooms.jpg",
+                            image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
                             rooms: rooms
                         });
 
@@ -1080,7 +1080,6 @@ app.post(("/pickRoom"), async function(req, res) {
 
     totalDays = (userEndDate - userStartDate) / 86400000;
 
-    //Create a new Stripe checkout session
     stripeSession = await stripe.checkout.sessions.create({
         line_items: [
             {
@@ -1105,6 +1104,7 @@ app.post(("/pickRoom"), async function(req, res) {
 
     //Redirects to Stripe checkout
     res.redirect(stripeSession.url);
+    
 });
 
 //Allows app to run locally and on Heroku
