@@ -168,7 +168,7 @@
             </div>
             <div class="row justify-content-center text-center">
               <div class="col-md-6">
-                <button type="submit" class="viewRates btn btn-dark">View Rates</button>
+                <button type="submit" class="viewRates btn btn-dark">VIEW RATES</button>
               </div>
             </div>
           </form>
@@ -204,8 +204,8 @@
                           <p class="card-text text-muted">1 King 2 Queens</p>
                       <% } %>
                       
-                      <p class="hidden card-text"><%= availableRooms[i].description %></p>
-                      <h3 class="hidden card-text"><%= availableRooms[i].price %><small class="text-muted"> USD/night</small></h3>
+                      <p class="card-text"><%= availableRooms[i].description %></p>
+                      <h3 class="card-text"><%= availableRooms[i].price %><small class="text-muted"> USD/night</small></h3>
                       
                       <!-- Shows a select button if the user is being shown available rooms -->
                       <% if (availableRooms.length != 4) { %>
@@ -250,22 +250,6 @@
               form.classList.add('was-validated')
             }, false)
           });
-        </script>
-
-        <script>
-          // Add show animation when objects are on the screen
-          const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("show");
-              } else {
-                entry.target.classList.remove("show");
-              }
-            });
-          });
-
-          const hiddenElements = document.querySelectorAll(".hidden");
-          hiddenElements.forEach((el) => observer.observe(el));
         </script>
     </body>
 </html>

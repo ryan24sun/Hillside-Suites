@@ -28,6 +28,7 @@ body {
 
 .btn {
     font-family: 'Barlow', sans-serif;
+    text-transform: uppercase;
 }
 
 h1 {
