@@ -51,6 +51,7 @@
                       <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                       <ul class="dropdown-menu dropdown-menu-dark accountBtn"> 
 
+                        <!-- Changes navbar dropdown based on whether user is logged in -->
                         <% if (authenticated) { %>
                           <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
                           <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -82,15 +83,16 @@
 
         </section>
 
+        <!-- Scrollable gallery of images of hotel interior -->
         <section id="gallery">
 
           <div class="spacer"></div>
-
           <div class="gallerySection">
 
             <h1 class="hidden galleryTitle">Hillside: Where Your Greatest Dreams Come True</h1>
 
             <div id="galleryScrollSection">
+              <!-- Saves variables to use for scrolling effect -->
               <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="-29" data-mouse-left="0">
                 <img class="galleryPic hiddenGalleryPic" src="images/gallery3.png" alt="gallerypic" draggable="false">
                 <img class="galleryPic hiddenGalleryPic" src="images/gallery2.jpg" alt="gallerypic" draggable="false">
@@ -108,14 +110,10 @@
 
         </section>
 
-        <!-- Basic pictures of the interior of our hotel -->
+        <!-- Introduction to our hotel -->
         <section id="pictures">
           
           <div class="picSection">
-
-            <!-- <div class="spacer"></div>
-            <h1 class="titleBHome hidden">Hillside: Where Your Greatest Dreams Come True</h1>
-            <div class="spacer"></div> -->
             
             <div class="picDiv">
               <img class="roomsPic3" src="images/yayaq-destination-ptj2xDWxEJU-unsplash.jpg" alt="spa pic">
@@ -125,16 +123,6 @@
                 <a class="btn btn-lg btn-dark picBtn" href="accommodations">View Rooms</a>
               </div>
             </div>
-            
-
-            <!-- <div class="row">
-              <div class="col-lg-6">
-                <img class="roomsPic2" src="images/RECEPTION-LOBBY.jpg" alt="room1 pic">
-              </div>
-              <div class="col-lg-6">
-                <img class="roomsPic2" src="images/dan-gold-4HG3Ca3EzWw-unsplash.jpg" alt="room2 pic">
-              </div>
-            </div> -->
 
           </div>
 
@@ -163,7 +151,7 @@
           </div>
         </section>
 
-        <!-- More images with the interior of the website along with owner testimonials  -->
+        <!-- More images with the interior of the hotel  -->
         <section id="pictures">
           
           <div class="picSection">
@@ -181,21 +169,21 @@
               </div>
             </div>
 
-            <!-- Testimonials from the owners of Hillside -->
+            <!-- Testimonials of Hillside -->
             <div class="testimonials">
               <div id="testimonial-carousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000" data-bs-pause="hover">
                 <div class="carousel-inner">
                   <div class="carousel-item active">
                     <p class="quote">"There was always something new to do outside of Hillside Suites. I went hiking, skiing, kayaking, ate at local restaurants, and met amazing people. Best of all, the hotel was at an extremely accessible location, just two minutes off of the highway."</p>
-                    <p class="person">Ryan Sun</p>
+                    <p class="person">James Robert</p>
                   </div>
                   <div class="carousel-item">
                     <p class="quote">"My stay at Hillside Suites was like nothing I could have imagined. From the extremely restful nights, to the beautiful sunrises at my balcony window, and to the convenient attractions right around the corner, there’s no other place I would ever stay at."</p>
-                    <p class="person">Havish Boda</p>
+                    <p class="person">Tessa Ferguson</p>
                   </div>
                   <div class="carousel-item">
                     <p class="quote">"The staff at Hillside Suites were extremely kind, patient, and helpful. They cleaned my room every afternoon and made it look as good as new, while respecting my privacy when needed as well."</p>
-                    <p class="person">Aarav Mulinti</p>
+                    <p class="person">Gregory Johnson</p>
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button" data-bs-target="#testimonial-carousel" data-bs-slide="prev">
@@ -243,6 +231,7 @@
 
         <script>
 
+          // Function to determine which pics in gallery will show on screen
           function isInViewport(element) {
               const rect = element.getBoundingClientRect();
               return (
@@ -253,6 +242,7 @@
 
           const galleryElements = document.querySelectorAll(".galleryPic");
 
+          // Only adds horizontal scrolling animation to galery pics that will show on screen
           window.onscroll = function() {
             galleryElements.forEach((el) => {
               if (!(isInViewport(el))) {
@@ -266,6 +256,7 @@
             entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 if (entry.target.classList.contains("hiddenGalleryPic")) {
+                  // Horizontal animation effect for gallery
                   entry.target.style.transform = "translateX(0%)";
                   entry.target.style.opacity = "1";
                 } 
@@ -283,6 +274,7 @@
             });
           });
 
+          // Observes all elements on page that will play animation
           const hiddenElements = document.querySelectorAll(".hidden");
           hiddenElements.forEach((el) => observer.observe(el));
 
@@ -293,13 +285,14 @@
           const track = document.getElementById("imageTrack");
           const scrollTrack = document.getElementById("galleryScrollSection");
 
+          // Places track in initial position
           track.style.transform = `translate(-29%, 0%)`;
-
           for(const image of track.getElementsByClassName("galleryPic")) {
             image.style.objectPosition = `71% center`;
           }
 
           scrollTrack.addEventListener("mousedown", e => {
+            // Records starting mouse position
             track.dataset.mouseDownAt = e.clientX
             track.dataset.mouseLeft = "0";
           });
@@ -311,6 +304,7 @@
           });
 
           scrollTrack.addEventListener("mouseup", () => {
+            // Updates info for next scroll
             track.dataset.mouseDownAt = "0";  
             track.dataset.prevPercentage = track.dataset.percentage;
           });
@@ -330,15 +324,19 @@
             if (track.dataset.mouseDownAt === "0") return;
             if (track.dataset.mouseLeft === "1") return;
             
+            // Tracks change in mouse position
             const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
                   maxDelta = window.innerWidth / 2;
             
+            // Calculates percentage of gallery that should be scrolled
             const percentage = (mouseDelta / maxDelta) * -100,
                   nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+                  // Sets max and min boundaries for scrolling gallery
                   nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
             
             track.dataset.percentage = nextPercentage;
             
+            // Creates track and pic animations
             track.animate({
               transform: `translate(${nextPercentage}%, 0%)`
             }, { duration: 1200, fill: "forwards" });

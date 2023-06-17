@@ -10,23 +10,24 @@ Display available rooms to user through backend MongoDB Database
 Book rooms and checkout using Stripe API
 Join mailing list using Mailchimp API
 View local attractions using Google Maps API
+Create an account to view bookings and make cancellations
 
 # What we used
-HTML
+EJS
 CSS + Bootstrap
 Javascript
-EJS
 Node JS + Express
 MongoDB + Mongoose
 MailChimp API
 Google Maps API
 Stripe API
+Passport + OAuth 2.0
 
 # Usage
-Link to website: http://blooming-meadow-80412.herokuapp.com/
+Link to website: https://powerful-anchorage-87095.herokuapp.com/
 
 # Access the code
-Link to github repository: https://github.com/AaravM11/HillsideSuites.git
+Link to github repository: https://github.com/ryan24sun/Hillside-Suites.git
 
 # Support 
 Email any one of the creater: aarav.mulinti@gmail.com, havish.boda2@gmail.com, ryan24.sun@gmail.com

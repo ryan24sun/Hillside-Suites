@@ -49,6 +49,7 @@
                       <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                       <ul class="dropdown-menu dropdown-menu-dark accountBtn"> 
 
+                        <!-- Changes navbar dropdown based on whether user is logged in -->
                         <% if (authenticated) { %>
                           <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
                           <li><a class="dropdown-item" href="/logout">Logout</a></li>

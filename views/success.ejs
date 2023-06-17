@@ -52,6 +52,7 @@
                       <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                       <ul class="dropdown-menu dropdown-menu-dark accountBtn"> 
 
+                        <!-- Changes navbar dropdown based on whether user is logged in -->
                         <% if (authenticated) { %>
                           <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
                           <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -76,6 +77,7 @@
 
           </section>
 
+          <!-- Alerts user of checkout success -->
           <% if (comingFromStripe === 1 || comingFromStripe === 3) { %>
             <section id="successMessage">
               <div class="jumbotron-fluid alert alert-success successJumbo">
@@ -86,6 +88,7 @@
                 </div>
             </section>
           <% } else { %>
+            <!-- Alerts user of checkout error -->
             <section id="successMessage">
               <div class="jumbotron-fluid alert alert-danger successJumbo">
                   <h2 class="display-4 reserveErrorHeader">Payment Error</h2>
@@ -98,6 +101,7 @@
 
           <footer id="footer">
             
+            <!-- Social media icons -->
             <i class="footerIcon fa-brands fa-instagram"></i>
             <i class="footerIcon fa-brands fa-twitter"></i>
             <i class="footerIcon fa-brands fa-facebook-f"></i>

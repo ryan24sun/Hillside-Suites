@@ -1,4 +1,4 @@
-/* CSS Transitions */
+/* CSS Animations */
 
 .hidden {
     opacity: 0;
@@ -62,7 +62,6 @@ h2 {
 
 /* Navbar */
 .navbar {
-    /* padding: 0 0 4.5rem; */
     padding: 0.5% 6% 0 2%;
     margin: 0;
     background: rgba(0, 0, 0, 0.75);
@@ -105,6 +104,7 @@ h2 {
 }
 
 .navbar-toggler-icon {
+    /* Changes color of dropdown toggler icon to white */
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }
 
@@ -135,9 +135,7 @@ h2 {
 
 /* Home Page */
 #titleMain {
-    /* background-image: url(../images/tempHome.jpg); */
     background-image: url(../images/awesomeHomePic.webp);
-    /* background-image: url(../images/homePic4.jpeg); */
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -145,7 +143,6 @@ h2 {
     width: auto;
     padding-bottom: 10%;
     max-width: 100%;
-    /* max-height: 842.72px; */
     max-height: 1000px;
 }
 
@@ -191,7 +188,6 @@ h2 {
     width: 95%;
     height: 650px;
     object-fit: cover;
-    /* margin: 6% 0; */
 }
 
 .roomsPic2 {
@@ -239,7 +235,6 @@ h2 {
 .picText {
     font-size: 1.3rem;
     width: 55%;
-    /* width: 670px; */
     padding-left: 65px;
     text-align: left;
 }
@@ -294,8 +289,6 @@ h2 {
 }
 
 .gallerySection {
-    /* height: 70vh; */
-    /* height: 70%; */
     margin: 0rem;
     overflow: hidden;
     z-index: 5;
@@ -395,7 +388,6 @@ h2 {
 }
 
 .featuresTitle {
-    /* font-family: 'Poppins', sans-serif; */
     font-family: 'Barlow Condensed', sans-serif;
     padding: 1%;
 }
@@ -432,8 +424,6 @@ h2 {
 
 /* Accommodations Page */
 #accommodationMain {
-    /* background-image: url(../images/d8ab42125604113.611ca9bc57750.jpg); */
-    /* background-image: url(../images/accomodation3.jpg); */
     background-image: url(../images/maybeAccommodations.png);
     background-size: cover;
     background-repeat: no-repeat;
@@ -449,9 +439,7 @@ h2 {
 }
 
 .accommodationsName {
-    /* font-family: 'Poppins', sans-serif; */
     color: rgb(255, 255, 255);
-    /* font-size: 2.5rem; */
 }
 
 .accommodations-title {
@@ -607,7 +595,6 @@ h2 {
 
 /* Amenities Page */
 #titleAmenities {
-    /* background-image: url(../images/copernico-cLmOptqvuFQ-unsplash.jpg); */
     background-image: url(../images/amenities1.jpg);
     background-position: center center;
     background-size: cover;
@@ -647,7 +634,6 @@ h2 {
 .text-big2 {
     background-color: #1D5C63;
     opacity: .5;
-    /* transform: translate(30%, -130%); */
     transform: translate(30%, -110%);
     width: 35%;
     height: 30%;
@@ -660,7 +646,6 @@ h2 {
 }
 
 .big-pic {
-    /* height: 10%; */
     width: 100%;
     object-fit: cover;
     max-height: 800px;
@@ -682,7 +667,6 @@ h2 {
 .amenities1 {
     width: 50%;
     height: 50%;
-    /* margin-left: 15%; */
     margin-left: 30%;
     margin-top: 10%;
     margin-bottom: 10%;
@@ -690,7 +674,6 @@ h2 {
 
 .amenity-desc {
     background-color: #1D5C63;
-    /* transform: translate(170%, -260%); */
     transform: translate(50%, -260%);
     width: 30%;
     height: 30%;
@@ -701,7 +684,6 @@ h2 {
 .amenities2 {
     width: 50%;
     height: 50%;
-    /* margin-left: 30%; */
     margin-left: 15%;
     margin-top: 10%;
     margin-bottom: 10%;
@@ -709,7 +691,6 @@ h2 {
 
 .amenity-desc2 {
     background-color: #1D5C63;
-    /* transform: translate(50%, -240%); */
     transform: translate(170%, -240%);
     width: 30%;
     height: 30%;
@@ -803,7 +784,6 @@ h2 {
 }
 
 /* Reserve Page */
-
 #titleReserve {
     background-image: url(../images/reservePicMaybeFinal.png);
     background-size: cover;
@@ -883,7 +863,6 @@ small {
 }
 
 /* Success Page */
-
 .successJumbo {
     text-align: center;
     margin: 7% 8%;
@@ -891,7 +870,6 @@ small {
 }
 
 /* Register Page */
-
 .accountCard {
     padding: 3%;
     text-align: center;
@@ -951,7 +929,7 @@ small {
     text-decoration: none;
 }
 
-/* my Bookings */
+/* My Bookings Page */
 .bookingsSection {
     padding: 7% 10%;
 }

@@ -68,6 +68,7 @@
 
           <div class="spacer"></div>
 
+          <!-- Admin Rooms Section -->
           <section class="adminSection" id="adminRooms">
             
             <h1 class="adminTitle">Rooms</h1>
@@ -94,6 +95,7 @@
 
           </section>
 
+          <!-- Admin Bookings Section -->
           <section class="adminSection" id="adminBookings">
 
             <h1 class="adminTitle">Bookings</h1>
@@ -133,34 +135,34 @@
 
           </section>
 
+          <!-- Admin Users Section -->
           <section class="adminUserSection" id="adminUsers">
 
             <h1 class="adminTitle">Users</h1>
 
             <div class="row justify-content-center">
-
                 <ul class="list-group">
                     <% for (let i = 0; i < users.length; i++) { %>
-                        <li class="list-group-item">
+                        <% if (users[i].username != "admin@gmail.com") { %>
+                          <li class="list-group-item">
                             <h3><%= "User " + (i + 1) %></h3>
                             <% if (users[i].googleId != null) { %>
                                 <p><%= users[i].googleId %></p>
                             <% } else { %>
                                 <p><%= users[i].username %></p>
                             <% } %>
-                        </li>
-                        
+                          </li>      
+                        <% } %>             
                     <% } %>
-                </ul>
-                
+                </ul>                
             </div>
-
           </section>
           
           <div class="spacer"></div>
 
           <footer id="footer">
             
+            <!-- Footer Social Media Icons -->
             <i class="footerIcon fa-brands fa-instagram"></i>
             <i class="footerIcon fa-brands fa-twitter"></i>
             <i class="footerIcon fa-brands fa-facebook-f"></i>
@@ -168,26 +170,6 @@
             <p class="footerText">Hillside Suites</p>
 
           </footer>
-          
-          <!-- JQuery Script -->
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-          <script>
-            //Fetch the form to apply Bootstrap validation styles to
-            const forms = document.querySelectorAll('.needs-validation')
-
-            //Loop over unfilled info from the form and prevent submission
-            Array.from(forms).forEach(form => {
-              form.addEventListener('submit', event => {
-                if (!form.checkValidity()) {
-                  event.preventDefault()
-                  event.stopPropagation()
-                }
-
-                form.classList.add('was-validated')
-              }, false)
-            });
-            
-          </script>
 
       </body>
         

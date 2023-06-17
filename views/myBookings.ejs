@@ -53,6 +53,7 @@
                         <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                         <ul class="dropdown-menu dropdown-menu-dark accountBtn"> 
   
+                          <!-- Changes navbar dropdown based on whether user is logged in -->
                           <% if (authenticated) { %>
                             <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -92,6 +93,7 @@
             <% } %>
             
             <div class="bookingsSection">
+
                 <!-- Populates the page with all of the user's orders stored in database -->
                 <% for (var i = 0; i < orders.length; i++) { %>
                     <div class="ordersCard card lg-3">
@@ -127,12 +129,12 @@
                                 <p class="card-text"><%= "  Check out Date: " + orders[i].endDate %></p>
                                 <h3 class="card-text">Total: <span class="bookingSmallTitle"><%= "$" + orders[i].totalPrice %></span></h3>
 
-                                <!-- Button trigger modal -->
+                                <!-- Cancellation button trigger modal -->
                                 <button type="button" class="btn btn-dark btn-md cancelBtn" data-bs-toggle="modal" data-bs-target="<%= "#cancelModal" + i %>">
                                     Cancel Booking
                                 </button>
                                 
-                                <!-- Modal Warning -->
+                                <!-- Modal warning -->
                                 <div class="modal fade" id="<%= "cancelModal" + i %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
@@ -153,7 +155,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Modal Confirmation of Cancellation -->
+                                <!-- Modal confirmation of cancellation -->
                                 <div class="modal fade" id="cancelConfirmation" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
                                     <div class="modal-dialog modal-dialog-centered">
                                       <div class="modal-content">

@@ -212,6 +212,7 @@ const usersSchema = new mongoose.Schema ({
     }]
 });
 
+// Plugins for account cookies
 usersSchema.plugin(passportLocalMongoose);
 usersSchema.plugin(findOrCreate);
 
@@ -243,37 +244,9 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-//Temp New Home Page
-app.get("/newHome", async function(req, res){
-    res.render("newIndex.ejs", {authenticated: req.isAuthenticated()});
-
-    //Only adds room types to DB once
-    const foundRooms = await RoomType.find();
-    if (foundRooms.length === 0) {
-        RoomType.insertMany(defaultRooms)
-        .then(function() {
-            console.log("Successfully saved room types to DB.");
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
-    }
-
-    //Only adds all rooms to DB once
-    const foundRooms2 = await Room.find();
-    if (foundRooms2.length === 0) {
-        Room.insertMany(allRooms)
-        .then(function() {
-            console.log("Successfully saved all rooms to DB.");
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
-    }
-});
-
 //Website Pages
 app.get("/" || "/home", async function(req, res){
+    // Passes in authenticated to adjust navbar account dropdown
     res.render("index.ejs", {authenticated: req.isAuthenticated()});
 
     //Only adds room types to DB once
@@ -314,8 +287,9 @@ var bookingError = 0;
 var checkoutRooms = [];
 
 app.get("/reserve" || "/book" || "/booknow", async function(req, res){
-    // Uses database info to fill the reserve page
+    // Uses info stored in user cookie to fill the reserve page
     if (req.isAuthenticated()) {
+        // If signed in with Google
         if (req.user.googleId != null) {
             const availableRooms = await User.find({ googleId: req.user.googleId });
             console.log("available rooms");
@@ -328,6 +302,7 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
             } else {
                 res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms, authenticated: req.isAuthenticated() });
             }
+        // If signed in with email
         } else {
             const availableRooms = await User.find({ username: req.user.username });
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
@@ -344,6 +319,7 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
     
 });
 
+// Key for Google Maps API
 const mapKey = process.env.MAPS_KEY
 
 app.get("/amenities", function(req, res){
@@ -352,6 +328,7 @@ app.get("/amenities", function(req, res){
 
 app.get("/checkout", async function(req, res){
     if (req.isAuthenticated()) {
+        // Fetches checkout info saved in user cookie
         if (req.user.googleId != null) {
             const tempCheckoutRooms = await User.findOne({ googleId: req.user.googleId });
             checkoutRooms = tempCheckoutRooms[0].checkoutRooms;
@@ -365,7 +342,7 @@ app.get("/checkout", async function(req, res){
 
 //Mailchimp success page 
 app.get("/mailchimp", function(req, res){    
-    //Prevents user from viewing succccess page unless they have entered their email
+    //Prevents user from viewing success page unless they have entered their email
     if (mailchimpSuccess === 0) {
         res.redirect("/");
     } else {
@@ -376,18 +353,21 @@ app.get("/mailchimp", function(req, res){
 //Redirects user to sign up with Google
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile"] }));
 
+// Authenticates sign in with Google
 app.get("/auth/google/myBookings", 
     passport.authenticate("google", { failureRedirect: "/signUp" }),
     function(req, res) {
-        // Successful authentication, redirect home.
+        // Successful authentication, redirect to my Bookings
         res.redirect("/myBookings");
     });
 
 var registerFailedAttempt = false;
 
+// Register page
 app.get("/register", function(req, res){
     if (!(req.isAuthenticated())) {
         res.render("register.ejs", {registerFailedAttempt, authenticated: req.isAuthenticated()});
+        // Sets var back to false to only show registration error message once
         registerFailedAttempt = false;
     } else {
         res.redirect("/");
@@ -396,9 +376,11 @@ app.get("/register", function(req, res){
 
 var failedAttempt = false;
 
+// Sign in page
 app.get("/signIn", function(req, res){
     if (!(req.isAuthenticated())) {
         res.render("signIn.ejs", {failedAttempt, authenticated: req.isAuthenticated()});
+        // Sets var back to false to only show sign in error message once
         failedAttempt = false;
     } else {
         res.redirect("/");
@@ -421,9 +403,11 @@ app.get("/myBookings", async function(req, res){
     }
 });
 
+// Admin page
 app.get("/admin", async function(req, res){
     if (req.isAuthenticated()) {
         if (req.user.admin) {
+            // Fills admin page with info from database
             const rooms = await Room.find({});
             const orders = await Order.find({});
             const users = await User.find({});
@@ -438,6 +422,7 @@ app.get("/admin", async function(req, res){
 
 //Post route to cancel a booking
 app.post("/cancel", async function(req, res){
+    // Retrieves room user wants to cancel
     const canceledRoomId = req.body.cancelBtn;
     console.log(canceledRoomId);
 
@@ -469,14 +454,17 @@ app.post("/cancel", async function(req, res){
 //Register Page
 app.post("/register", async function(req, res){
 
+    // Attempts to register new user
     User.register({username: req.body.username}, req.body.password, function(err, user){
         if (err) {
             console.log(err);
             registerFailedAttempt = true;
             res.redirect("/register");
         } else {
+            // Saves email and salts and hashes password
             passport.authenticate("local")(req, res, function(){
                 registerFailedAttempt = false;
+                // Redirects to my Bookings page after successful registration
                 res.redirect("/myBookings");
             });
         }
@@ -491,13 +479,16 @@ app.post("/signIn", async function(req, res){
         password: req.body.password
     });
 
+    // Attempts to login user
     req.login(user, function(err){
         if (err) {
             console.log(err);
         } else {
             failedAttempt = true;
+            // Redirects to sign in if sign in fails
             passport.authenticate("local", {failureRedirect: "/signIn"})(req, res, function(){
                 failedAttempt = false;
+                // Redirects to admin page if user is admin
                 if (req.user.admin) {
                     res.redirect("/admin");
                 } else {
@@ -516,6 +507,7 @@ app.get("/logout", function(req, res){
         }
     });
 
+    // Resets to default rooms on reserve page
     RoomType.deleteMany({})
     .then(function() {
         console.log("available rooms reset");
@@ -532,6 +524,7 @@ app.get("/logout", function(req, res){
         console.log(error);
     })
 
+    // Redirects to home page
     res.redirect("/");
 });
 
@@ -565,6 +558,7 @@ app.get("/success", async function(req, res){
                         })
                 }
 
+                // Resets user cookies for reserve info
                 if (req.isAuthenticated()) {
                     if (req.user.googleId != null) {
                         User.updateOne({ googleId: req.user.googleId }, { $pullAll: { newRooms: newRooms, checkoutRooms: checkoutRooms }})
@@ -826,6 +820,8 @@ function checkRooms(arrivalDate, departureDate, roomType) {
 //Form submission to calculate available rooms
 app.post("/reserve", async function(req, res){
 
+    // Commented out code to reset website if needed
+
     // const delete1 = await Room.deleteMany({});
     // console.log(delete1);
 
@@ -1033,15 +1029,12 @@ app.post(("/pickRoom"), async function(req, res) {
     //Sets comingFromStripe to 1 to prevent seeing success page without checking out 
     comingFromStripe = 1;
     if (req.isAuthenticated()) {
+        // Retrieves reserve page info from user cookie
         if (req.user.googleId != null) {
             const tempUserRooms = await User.findOne({ googleId: req.user.googleId });
             console.log(tempUserRooms);
             newRooms = tempUserRooms.newRooms;
-            // console.log("new rooms");
-            // console.log(newRooms);
             checkoutRooms = tempUserRooms.checkoutRooms;
-            // console.log("checkout rooms");
-            // console.log(checkoutRooms);
         } else {
             const tempUserRooms = await User.findOne({ username: req.user.username });
             newRooms = tempUserRooms.newRooms;

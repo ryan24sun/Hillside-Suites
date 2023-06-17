@@ -56,6 +56,7 @@
                       <a class="nav-link dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Account</a>
                       <ul class="dropdown-menu dropdown-menu-dark accountBtn"> 
 
+                        <!-- Changes navbar dropdown based on whether user is logged in -->
                         <% if (authenticated) { %>
                           <li><a class="dropdown-item" href="myBookings">My Bookings</a></li>
                           <li><a class="dropdown-item" href="/logout">Logout</a></li>
@@ -82,6 +83,7 @@
 
           <div class="spacer"></div>
 
+          <!-- Show error message if email already exists -->
           <% if (registerFailedAttempt) { %>
             <div class="jumbotron-fluid alert alert-danger successJumbo">
               <h2 class="display-4 reserveErrorHeader">Register Error</h2>
@@ -96,6 +98,7 @@
 
               <div class="card accountCard card-body">
 
+                <!-- Form to register -->
                 <form action="/register" class="row justify-content-center needs-validation accountContent" method="post" novalidate>
 
                   <h1 class="card-title accountTitle">Register</h1>
@@ -117,6 +120,7 @@
 
                 <div class="or-container"><div class="line-separator"></div><div class="line-separator"></div></div>                
 
+                <!-- Sign up with Google Button -->
                 <div class="row">
                   <div class="col-sm-12">
                     <a class="btn btn-block btn-social btn-google" href="/auth/google"><i class="fab fa-google"></i> Sign Up With Google</a>
@@ -133,6 +137,7 @@
 
           <footer id="footer">
             
+            <!-- Social Media Icons -->
             <i class="footerIcon fa-brands fa-instagram"></i>
             <i class="footerIcon fa-brands fa-twitter"></i>
             <i class="footerIcon fa-brands fa-facebook-f"></i>
@@ -141,8 +146,6 @@
 
           </footer>
 
-          <!-- JQuery Script -->
-          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
           <script>
             //Fetch the form to apply Bootstrap validation styles to
             const forms = document.querySelectorAll('.needs-validation')
