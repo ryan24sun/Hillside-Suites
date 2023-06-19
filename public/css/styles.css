@@ -142,6 +142,7 @@ h2 {
     background-image: url(../images/awesomeHomePic.webp);
     background-attachment: fixed;
     background-size: cover;
+    background-position: center; 
     background-repeat: no-repeat;
     background-position: center center;
     height: auto;
@@ -450,6 +451,7 @@ h2 {
 
 .accommodations-title {
     padding: 4% 4% 4% 4%;
+    margin-top: 14%; 
     text-align: center;
     max-width: 800px;
     color: rgb(255, 255, 255);
@@ -534,7 +536,7 @@ h2 {
 }
 
 .about-title {
-    margin-top: 50%;
+    margin-top: 72%;
     padding-top: 5%;
     padding-bottom: 5%;
     text-align: center;
@@ -607,10 +609,11 @@ h2 {
     background-repeat: no-repeat;
     height: auto;
     max-width: 100%;
+    
 }
 
 .titling-body {
-    margin-top: 15%;
+    margin-top: 21%;
 }
 
 .first-amenity {
@@ -802,7 +805,7 @@ h2 {
 }
 
 .title-reserve {
-    margin-top: 50%;
+    margin-top: 70%;
     padding-top: 5%;
     padding-bottom: 5%;
     text-align: center;
