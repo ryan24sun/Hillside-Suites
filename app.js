@@ -61,59 +61,111 @@ const roomsDescriptionSchema = {
     rooms: Number
 };
 
+const defaultRoomsSchema = {
+    type: String,
+    description: String,
+    price: Number
+}
+
 //Connects RoomType database with MongoDB
 const RoomType = mongoose.model("RoomType", roomsDescriptionSchema);
+const DefaultRoom = mongoose.model("DefaultRoom", defaultRoomsSchema);
 var rooms = 0;
 
-//Reserve page default single room
-const singleRoom = new RoomType({
+const singleRoom = new DefaultRoom({
     type: "Single Room",
-    doubles: 0,
-    queens: 1,
-    kings: 0,
     description: "Enjoy your stay in one of our single rooms at Hillside Suites, with a queen bed, a TV, a couch, and a desk.",
     price: 205, 
-    image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
-    rooms: rooms
 });
 
-//Reserve page default double room
-const doubleRoom = new RoomType({
+const doubleRoom = new DefaultRoom({
     type: "Double Room",
-    doubles: 2,
-    queens: 0,
-    kings: 0,
     description: "Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a TV, a couch, and a desk.",
     price: 235,
-    image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
-    rooms: rooms
 });
 
-//Reserve page default triple room
-const tripleRoom = new RoomType({
+const tripleRoom = new DefaultRoom({
     type: "Triple Room",
-    doubles: 2,
-    queens: 1,
-    kings: 0,
     description: "Enjoy your stay in one of our triple rooms at Hillside Suites, with one queen bed, two double beds, a TV, a couch, and a desk.",
     price: 265,
-    image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
-    rooms: rooms
 });
 
-//Reserve page default master suite
-const masterSuite = new RoomType({
+const masterSuite = new DefaultRoom({
     type: "Master Suite",
-    doubles: 0,
-    queens: 2,
-    kings: 1,
     description: "Enjoy your stay in one of our master suites at Hillside Suites, with one king bed, two queen beds, two TVs, two couches, a desk, and a large bathtub.",
     price: 295,
-    image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
-    rooms: rooms
 });
 
 const defaultRooms = [singleRoom, doubleRoom, tripleRoom, masterSuite];
+
+// Function to reset room types displaying on reserve page
+async function resetRoomTypes() {
+    const defaultRooms = await DefaultRoom.find({});
+    RoomType.deleteMany({})
+    .then(() => {
+
+        //Default single room
+        const singleRoom = new RoomType({
+            type: "Single Room",
+            doubles: 0,
+            queens: 1,
+            kings: 0,
+            description: defaultRooms[0].description,
+            price: defaultRooms[0].price, 
+            image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
+            rooms: rooms
+        });
+
+        //Default double room
+        const doubleRoom = new RoomType({
+            type: "Double Room",
+            doubles: 2,
+            queens: 0,
+            kings: 0,
+            description: defaultRooms[1].description,
+            price: defaultRooms[1].price,
+            image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
+            rooms: rooms
+        });
+
+        //Default triple room
+        const tripleRoom = new RoomType({
+            type: "Triple Room",
+            doubles: 2,
+            queens: 1,
+            kings: 0,
+            description: defaultRooms[2].description,
+            price: defaultRooms[2].price,
+            image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
+            rooms: rooms
+        });
+
+        //Default master suite
+        const masterSuite = new RoomType({
+            type: "Master Suite",
+            doubles: 0,
+            queens: 2,
+            kings: 1,
+            description: defaultRooms[3].description,
+            price: defaultRooms[3].price,
+            image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
+            rooms: rooms
+        });
+
+        const fillRoomTypes = [singleRoom, doubleRoom, tripleRoom, masterSuite];
+
+        RoomType.insertMany(fillRoomTypes)
+        .then(() => {
+            console.log("room types reset");
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}
 
 //Available rooms layout in database
 const roomsSchema = {
@@ -249,16 +301,22 @@ app.get("/" || "/home", async function(req, res){
     // Passes in authenticated to adjust navbar account dropdown
     res.render("index.ejs", {authenticated: req.isAuthenticated()});
 
-    //Only adds room types to DB once
-    const foundRooms = await RoomType.find();
-    if (foundRooms.length === 0) {
-        RoomType.insertMany(defaultRooms)
+    //Only adds default rooms to DB once
+    const foundRooms3 = await DefaultRoom.find();
+    if (foundRooms3.length === 0) {
+        DefaultRoom.insertMany(defaultRooms)
         .then(function() {
-            console.log("Successfully saved room types to DB.");
+            console.log("Successfully saved default rooms to DB.");
         })
         .catch(function(error) {
             console.log(error);
         })
+    }
+
+    //Only adds room types to DB once
+    const foundRooms = await RoomType.find();
+    if (foundRooms.length === 0) {
+        await resetRoomTypes();
     }
 
     //Only adds all rooms to DB once
@@ -296,9 +354,76 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
             console.log(availableRooms);
             console.log(availableRooms[0].newRooms);
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
-                const availableRooms2 = await RoomType.find();
-                console.log("availablerooms2");
-                res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
+
+                // Reset default rooms
+                const defaultRooms = await DefaultRoom.find({});
+                RoomType.deleteMany({})
+                .then(() => {
+
+                    //Default single room
+                    const singleRoom = new RoomType({
+                        type: "Single Room",
+                        doubles: 0,
+                        queens: 1,
+                        kings: 0,
+                        description: defaultRooms[0].description,
+                        price: defaultRooms[0].price, 
+                        image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default double room
+                    const doubleRoom = new RoomType({
+                        type: "Double Room",
+                        doubles: 2,
+                        queens: 0,
+                        kings: 0,
+                        description: defaultRooms[1].description,
+                        price: defaultRooms[1].price,
+                        image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default triple room
+                    const tripleRoom = new RoomType({
+                        type: "Triple Room",
+                        doubles: 2,
+                        queens: 1,
+                        kings: 0,
+                        description: defaultRooms[2].description,
+                        price: defaultRooms[2].price,
+                        image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default master suite
+                    const masterSuite = new RoomType({
+                        type: "Master Suite",
+                        doubles: 0,
+                        queens: 2,
+                        kings: 1,
+                        description: defaultRooms[3].description,
+                        price: defaultRooms[3].price,
+                        image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
+                        rooms: rooms
+                    });
+
+                    const fillRoomTypes = [singleRoom, doubleRoom, tripleRoom, masterSuite];
+
+                    RoomType.insertMany(fillRoomTypes)
+                    .then(async function() {
+                        console.log("room types reset");
+                        const availableRooms2 = await RoomType.find();
+                        res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                
             } else {
                 res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms, authenticated: req.isAuthenticated() });
             }
@@ -306,8 +431,75 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         } else {
             const availableRooms = await User.find({ username: req.user.username });
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
-                const availableRooms2 = await RoomType.find();
-                res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated()});
+                // Reset room types
+                const defaultRooms = await DefaultRoom.find({});
+                RoomType.deleteMany({})
+                .then(() => {
+
+                    //Default single room
+                    const singleRoom = new RoomType({
+                        type: "Single Room",
+                        doubles: 0,
+                        queens: 1,
+                        kings: 0,
+                        description: defaultRooms[0].description,
+                        price: defaultRooms[0].price, 
+                        image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default double room
+                    const doubleRoom = new RoomType({
+                        type: "Double Room",
+                        doubles: 2,
+                        queens: 0,
+                        kings: 0,
+                        description: defaultRooms[1].description,
+                        price: defaultRooms[1].price,
+                        image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default triple room
+                    const tripleRoom = new RoomType({
+                        type: "Triple Room",
+                        doubles: 2,
+                        queens: 1,
+                        kings: 0,
+                        description: defaultRooms[2].description,
+                        price: defaultRooms[2].price,
+                        image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
+                        rooms: rooms
+                    });
+
+                    //Default master suite
+                    const masterSuite = new RoomType({
+                        type: "Master Suite",
+                        doubles: 0,
+                        queens: 2,
+                        kings: 1,
+                        description: defaultRooms[3].description,
+                        price: defaultRooms[3].price,
+                        image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
+                        rooms: rooms
+                    });
+
+                    const fillRoomTypes = [singleRoom, doubleRoom, tripleRoom, masterSuite];
+
+                    RoomType.insertMany(fillRoomTypes)
+                    .then(async function() {
+                        console.log("room types reset");
+                        const availableRooms2 = await RoomType.find();
+                        res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated()});
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    })
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+                
             } else {
                 res.render("reserve.ejs", { bookingError, availableRooms: availableRooms[0].newRooms, authenticated: req.isAuthenticated() });
             }
@@ -408,10 +600,79 @@ app.get("/admin", async function(req, res){
     if (req.isAuthenticated()) {
         if (req.user.admin) {
             // Fills admin page with info from database
-            const rooms = await Room.find({});
-            const orders = await Order.find({});
-            const users = await User.find({});
-            res.render("admin.ejs", {authenticated: req.isAuthenticated(), rooms, orders, users});
+
+            const defaultRooms = await DefaultRoom.find({});
+            RoomType.deleteMany({})
+            .then(() => {
+
+                //Default single room
+                const singleRoom = new RoomType({
+                    type: "Single Room",
+                    doubles: 0,
+                    queens: 1,
+                    kings: 0,
+                    description: defaultRooms[0].description,
+                    price: defaultRooms[0].price, 
+                    image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
+                    rooms: rooms
+                });
+
+                //Default double room
+                const doubleRoom = new RoomType({
+                    type: "Double Room",
+                    doubles: 2,
+                    queens: 0,
+                    kings: 0,
+                    description: defaultRooms[1].description,
+                    price: defaultRooms[1].price,
+                    image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
+                    rooms: rooms
+                });
+
+                //Default triple room
+                const tripleRoom = new RoomType({
+                    type: "Triple Room",
+                    doubles: 2,
+                    queens: 1,
+                    kings: 0,
+                    description: defaultRooms[2].description,
+                    price: defaultRooms[2].price,
+                    image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
+                    rooms: rooms
+                });
+
+                //Default master suite
+                const masterSuite = new RoomType({
+                    type: "Master Suite",
+                    doubles: 0,
+                    queens: 2,
+                    kings: 1,
+                    description: defaultRooms[3].description,
+                    price: defaultRooms[3].price,
+                    image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
+                    rooms: rooms
+                });
+
+                const fillRoomTypes = [singleRoom, doubleRoom, tripleRoom, masterSuite];
+
+                RoomType.insertMany(fillRoomTypes)
+                .then(async function() {
+                    console.log("room types reset");
+                    const defaultRooms = await DefaultRoom.find({});
+                    const roomTypes = await RoomType.find({});
+                    const rooms = await Room.find({});
+                    const orders = await Order.find({});
+                    const users = await User.find({});
+                    res.render("admin.ejs", {authenticated: req.isAuthenticated(), defaultRooms, roomTypes, rooms, orders, users});
+                })
+                .catch((err) => {
+                    console.log(err);
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+            
         } else {
             res.redirect("/");
         }
@@ -419,6 +680,127 @@ app.get("/admin", async function(req, res){
         res.redirect("/");
     }
 });
+
+// Post route to change default room types
+app.post("/changeRoom", async function(req, res) {
+    const type = req.body.changeBtn;
+    const description = req.body.description;
+    const price = req.body.price;
+
+    // Updates description and price to default rooms if they are not empty
+    if (description != "" && price != "") {
+        DefaultRoom.updateOne({type: type}, {description: description, price: price})
+        .then(async function() {
+            console.log("description and price updated");
+
+            // Updates price and description stored in user cookies
+            const users = await User.find({})
+            for (let i = 0; i < users.length; i++) {
+                const _id = users[i]._id;
+                if (!(users[i].newRooms.length === 0 || users[i].newRooms === null)) {
+                  if (users[i].newRooms[0].type === type) {
+                    await User.updateOne(
+                      { _id: _id },
+                      {
+                        $set: {
+                          "newRooms.0.price": price,
+                          "newRooms.0.description": description,
+                        },
+                      }
+                    );
+                    console.log("New rooms updated for " + _id);
+              
+                    for (let j = 0; j < users[i].checkoutRooms.length; j++) {
+                      await User.updateOne(
+                        { _id: _id },
+                        {
+                          $set: {
+                            ["checkoutRooms." + j + ".price"]: price,
+                          },
+                        }
+                      );
+                      console.log("Checkout room " + j + " updated for " + _id);
+                    }
+                  }
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    } else if (description == "" && price != "") {
+        DefaultRoom.updateOne({type: type}, {price: price})
+        .then(async function() {
+            console.log("price updated");
+
+            // Updates price stored in user cookies
+            const users = await User.find({})
+            for (let i = 0; i < users.length; i++) {
+                const _id = users[i]._id;
+                if (!(users[i].newRooms.length === 0 || users[i].newRooms === null)) {
+                  if (users[i].newRooms[0].type === type) {
+                    await User.updateOne(
+                      { _id: _id },
+                      {
+                        $set: {
+                          "newRooms.0.price": price,
+                        },
+                      }
+                    );
+                    console.log("New rooms updated for " + _id);
+              
+                    for (let j = 0; j < users[i].checkoutRooms.length; j++) {
+                      await User.updateOne(
+                        { _id: _id },
+                        {
+                          $set: {
+                            ["checkoutRooms." + j + ".price"]: price,
+                          },
+                        }
+                      );
+                      console.log("Checkout room " + j + " updated for " + _id);
+                    }
+                  }
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    } else if (description != "" && price == "") {
+        DefaultRoom.updateOne({type: type}, {description: description})
+        .then(async function() {
+            console.log("description updated");
+
+            // Updates description stored in user cookies
+            const users = await User.find({})
+            for (let i = 0; i < users.length; i++) {
+                const _id = users[i]._id;
+                if (!(users[i].newRooms.length === 0 || users[i].newRooms === null)) {
+                  if (users[i].newRooms[0].type === type) {
+                    await User.updateOne(
+                      { _id: _id },
+                      {
+                        $set: {
+                          "newRooms.0.description": description,
+                        },
+                      }
+                    );
+                    console.log("New rooms updated for " + _id);
+                  }
+                }
+            }
+        })
+        .catch((err) => {
+            console.log(err);
+        })
+    } else {
+        console.log("no updates made");
+    }
+
+    await resetRoomTypes();
+
+})
 
 //Post route to cancel a booking
 app.post("/cancel", async function(req, res){
@@ -500,7 +882,7 @@ app.post("/signIn", async function(req, res){
 });
 
 //Logout Button
-app.get("/logout", function(req, res){
+app.get("/logout", async function(req, res){
     req.logout(function(err) {
         if (err) {
             console.log(err);
@@ -508,21 +890,7 @@ app.get("/logout", function(req, res){
     });
 
     // Resets to default rooms on reserve page
-    RoomType.deleteMany({})
-    .then(function() {
-        console.log("available rooms reset");
-        
-        RoomType.insertMany(defaultRooms)
-        .then(function() {
-            console.log("Default rooms restored");
-        })
-        .catch(function(error) {
-            console.log(error);
-        })
-    })
-    .catch(function(error) {
-        console.log(error);
-    })
+    await resetRoomTypes();
 
     // Redirects to home page
     res.redirect("/");
@@ -580,22 +948,7 @@ app.get("/success", async function(req, res){
                 }
 
                 //Restores default reserve ejs page
-                RoomType.deleteMany({}) 
-                    .then(function() {
-                        console.log("Available rooms reset");
-                    })
-                    .then(function() {
-                        RoomType.insertMany(defaultRooms)
-                            .then(function() {
-                                console.log("Default rooms restored");
-                            })
-                            .catch(function(error) {
-                                console.log(error);
-                            })
-                    })
-                    .catch(function(error) {
-                        console.log(error);
-                    });
+                await resetRoomTypes();
         
                 const finalRoomNumbers = [];
                 
@@ -883,7 +1236,7 @@ app.post("/reserve", async function(req, res){
             }
         }
 
-        setTimeout(() => {
+        setTimeout(async function() {
             //Sends an error if not all rooms were filled
             if (roomsFilled.length < rooms) {
                 bookingError = 2;
@@ -894,6 +1247,7 @@ app.post("/reserve", async function(req, res){
                 console.log("Rooms successfully filled!");
                 console.log(roomsFilled);
                 newRooms = [];
+                const defaultRooms = await DefaultRoom.find({});
                 //Clears current room types to replace with user's available rooms
                 RoomType.deleteMany({}) 
                     .then(function() {
@@ -911,8 +1265,8 @@ app.post("/reserve", async function(req, res){
                             doubles: 0,
                             queens: 1,
                             kings: 0,
-                            description: "Enjoy your stay in one of our single rooms at Hillside Suites, with a queen bed, a TV, a couch, and a desk.",
-                            price: 205, 
+                            description: defaultRooms[0].description,
+                            price: defaultRooms[0].price, 
                             image: "http://cdn.home-designing.com/wp-content/uploads/2019/10/green-and-white-bedroom.jpg",
                             rooms: rooms
                         });
@@ -922,8 +1276,8 @@ app.post("/reserve", async function(req, res){
                             doubles: 2,
                             queens: 0,
                             kings: 0,
-                            description: "Enjoy your stay in one of our double rooms at Hillside Suites, with two double beds, a TV, a couch, and a desk.",
-                            price: 235,
+                            description: defaultRooms[1].description,
+                            price: defaultRooms[1].price,
                             image: "https://www.lennoxmiamibeach.com/resourcefiles/gallery-page/rooms11-at-lennox-miami-beach-florida.jpg",
                             rooms: rooms
                         });
@@ -933,8 +1287,8 @@ app.post("/reserve", async function(req, res){
                             doubles: 2,
                             queens: 1,
                             kings: 0,
-                            description: "Enjoy your stay in one of our triple rooms at Hillside Suites, with one queen bed, two double beds, a TV, a couch, and a desk.",
-                            price: 265,
+                            description: defaultRooms[2].description,
+                            price: defaultRooms[2].price,
                             image: "https://www.lennoxmiamibeach.com/resourcefiles/homeroomsliderimages/terrace-poolside-double-in-lennoxmiamibeach-florida.jpg",
                             rooms: rooms
                         });
@@ -944,8 +1298,8 @@ app.post("/reserve", async function(req, res){
                             doubles: 0,
                             queens: 2,
                             kings: 1,
-                            description: "Enjoy your stay in one of our master suites at Hillside Suites, with one king bed, two queen beds, two TVs, two couches, a desk, and a large bathtub.",
-                            price: 295,
+                            description: defaultRooms[3].description,
+                            price: defaultRooms[3].price,
                             image: "http://cdn.home-designing.com/wp-content/uploads/2020/01/green-bedroom-ideas.jpg",
                             rooms: rooms
                         });

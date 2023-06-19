@@ -34,15 +34,18 @@
                 
               <!-- nav bar -->
               <nav class="navbar navbar-expand-lg navbar-dark">
-                <a class="navbar-brand" href="#adminRooms">
+                <a class="navbar-brand" href="#titleMain">
                   <img src="images/HillSide__1_-removebg-preview.png" width="100px" height="100px" class="d-inline-block align-top" alt="logo">
                 </a>
             
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler01" aria-controls="navbarToggler01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarToggler01">
+                <div class="collapse navbar-collapse" id="navbarAdmin">
                   <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#adminRoomTypes">Room Types</a>
+                    </li>
                     <li class="nav-item">
                       <a class="nav-link" href="#adminRooms">Rooms</a>
                     </li>
@@ -67,6 +70,78 @@
           </section>
 
           <div class="spacer"></div>
+
+          <!-- Admin Room Titles Section -->
+          <section class="adminSection" id="adminRoomTypes">
+
+            <h1 class="adminTitle">Room Types</h1>
+
+            <div class="row justify-content-center">
+              <% for (let i = 0; i < roomTypes.length; i++) { %>
+                <div class="adminCard card col-md-5">
+                  <div class="card-body">
+                    <h2 class="card-title"><%= roomTypes[i].type %></h2>
+                    <p class="card-text"><%= "Doubles: " + roomTypes[i].doubles %></p>
+                    <p class="card-text"><%= "Queens: " + roomTypes[i].queens %></p>
+                    <p class="card-text"><%= "Kings: " + roomTypes[i].kings %></p>
+                    <p class="card-text"><%= "Description: " + roomTypes[i].description %></p>
+                    <p class="card-text"><%= "Price: $" + roomTypes[i].price %></p>
+
+                    <!-- Edit button trigger modal -->
+                    <button type="button" class="btn btn-dark btn-md" data-bs-toggle="modal" data-bs-target="<%= "#changeModal" + i %>">
+                      Make Changes
+                    </button>
+
+                    <!-- Modal change -->
+                    <div class="modal fade" id="<%= "changeModal" + i %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                              <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel"><%= roomTypes[i].type %></h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                              
+                                <form action="/changeRoom" method="post">
+                                  <label for="formControlDescription" class="form-label">New Description</label>
+                                  <textarea class="form-control descriptionText" name="description" id="formControlDescription" rows="3"></textarea>
+                                  <label for="formControlPrice" class="form-label">New Price</label>
+                                  <input name="price" type="number" id="formControlPrice" class="form-label">
+
+                              </div>
+                              <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                      <button type="submit" value="<%= roomTypes[i].type %>" name="changeBtn" class="btn btn-primary" data-bs-target="<%= "#changeConfirmation" + i %>" data-bs-toggle="modal">Confirm Changes</button>
+                                  </form>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <!-- Modal confirmation of changes -->
+                    <div class="modal fade" id="<%= "changeConfirmation" + i %>" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2"><%= roomTypes[i].type %></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <%= "Changes made to " + roomTypes[i].type + "!" %>
+                          </div>
+                          <div class="modal-footer">
+                            <a href="admin" class="btn btn-primary">Close</a>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+
+                  </div>
+                </div>
+              <% } %>
+            </div>
+
+          </section>
 
           <!-- Admin Rooms Section -->
           <section class="adminSection" id="adminRooms">

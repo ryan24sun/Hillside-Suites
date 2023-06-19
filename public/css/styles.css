@@ -67,6 +67,10 @@ h2 {
     background: rgba(0, 0, 0, 0.75);
 }
 
+#navbarAdmin .nav-item:nth-child(1) {
+    width: 170px;
+}
+
 .navbar-brand {
     padding: 0;
 }
@@ -136,6 +140,7 @@ h2 {
 /* Home Page */
 #titleMain {
     background-image: url(../images/awesomeHomePic.webp);
+    background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
@@ -429,6 +434,7 @@ h2 {
     background-repeat: no-repeat;
     background-position: center center;
     height: auto;
+    width: auto;
     max-width: 100%;
     max-height: 870px;
     padding-bottom: 11%;
@@ -968,4 +974,8 @@ small {
 
 .adminUserSection {
     padding: 3% 15%;
+}
+
+.descriptionText {
+    margin-bottom: 30px;
 }
