@@ -332,8 +332,9 @@ app.get("/" || "/home", async function(req, res){
     }
 });
 
-app.get("/accommodations", function(req, res){
-    res.render("accommodations.ejs", {authenticated: req.isAuthenticated()});
+app.get("/accommodations", async function(req, res){
+    const roomTypes = await DefaultRoom.find({});
+    res.render("accommodations.ejs", {authenticated: req.isAuthenticated(), roomTypes: roomTypes});
 });
 
 app.get("/about", function(req, res){
