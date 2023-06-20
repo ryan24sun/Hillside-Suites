@@ -93,7 +93,7 @@
 
             <div id="galleryScrollSection">
               <!-- Saves variables to use for scrolling effect -->
-              <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="-29" data-mouse-left="0">
+              <div id="imageTrack" data-mouse-down-at="0" data-prev-percentage="-24" data-mouse-left="0">
                 <img class="galleryPic hiddenGalleryPic" src="images/gallery3.png" alt="gallerypic" draggable="false">
                 <img class="galleryPic hiddenGalleryPic" src="images/gallery2.jpg" alt="gallerypic" draggable="false">
                 <img class="galleryPic hiddenGalleryPic" src="images/RECEPTION-LOBBY.jpg" alt="gallerypic" draggable="false">
@@ -280,9 +280,9 @@
           const scrollTrack = document.getElementById("galleryScrollSection");
 
           // Places track in initial position
-          track.style.transform = `translate(-29%, 0%)`;
+          track.style.transform = `translate(-24%, 0%)`;
           for(const image of track.getElementsByClassName("galleryPic")) {
-            image.style.objectPosition = `71% center`;
+            image.style.objectPosition = `76% center`;
           }
 
           scrollTrack.addEventListener("mousedown", e => {
