@@ -431,9 +431,10 @@ h2 {
 /* Accommodations Page */
 #accommodationMain {
     background-image: url(../images/maybeAccommodations.png);
+    background-attachment: fixed;
     background-size: cover;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: right 50% bottom 10%;
     height: auto;
     width: auto;
     max-width: 100%;
