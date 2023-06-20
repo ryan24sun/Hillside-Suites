@@ -741,6 +741,13 @@ h2 {
     opacity: .95;
 }
 
+.amenities-bathroom {
+    width: 50%;
+    height: 50%;
+    margin-left: 30%;
+    margin-top: 5%;
+}
+
 .amenities-body {
     padding-top: 5%;
     padding-bottom: 5%;
@@ -820,6 +827,8 @@ h2 {
     text-align: center;
     margin-top: -2%;
 }
+
+
 
 /* Reserve Page */
 #titleReserve {
@@ -972,6 +981,18 @@ small {
 .adminBtn {
     color: black;
     text-decoration: none;
+}
+
+.signin-footer {
+    text-align: center;
+}
+
+.signin-box {
+    margin-left: 1%;
+}
+
+.register-box {
+    margin-left: 1%;
 }
 
 /* My Bookings Page */
