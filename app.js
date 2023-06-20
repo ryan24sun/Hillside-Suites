@@ -415,7 +415,9 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
                     .then(async function() {
                         console.log("room types reset");
                         const availableRooms2 = await RoomType.find();
-                        res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
+                        setTimeout(() => {
+                            res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
+                        }, 300);
                     })
                     .catch((err) => {
                         console.log(err);
@@ -491,7 +493,9 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
                     .then(async function() {
                         console.log("room types reset");
                         const availableRooms2 = await RoomType.find();
-                        res.render("reserve.ejs", {bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated()});
+                        setTimeout(() => {
+                            res.render("reserve.ejs", { bookingError, availableRooms: availableRooms2, authenticated: req.isAuthenticated() });
+                        }, 300);
                     })
                     .catch((err) => {
                         console.log(err);
