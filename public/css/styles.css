@@ -151,7 +151,7 @@ h2 {
 }
 
 /* Home Page */
-#titleMain {
+#homeMain {
     background-image: url(../images/awesomeHomePic.webp);
     background-attachment: fixed;
     background-size: cover;
