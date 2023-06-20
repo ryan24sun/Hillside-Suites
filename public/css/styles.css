@@ -407,6 +407,18 @@ h2 {
     transition-delay: 300ms;
 }
 
+@media(max-width: 768px) {
+
+    .profile:nth-child(2){
+        transition-delay: 0ms;
+    }
+    
+    .profile:nth-child(3){
+        transition-delay: 0ms;
+    }
+
+}
+
 .icon {
     font-size: 4rem;
     margin-bottom: 1rem;
@@ -623,7 +635,7 @@ h2 {
 
 .docBtn {
     width: 200px;
-    margin: 0 2%;
+    margin: 2%;
 }
 
 /* Amenities Page */
