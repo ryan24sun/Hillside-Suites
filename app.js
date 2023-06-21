@@ -513,6 +513,8 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         const availableRooms = await RoomType.find();
         res.render("reserve.ejs", {bookingError, availableRooms: availableRooms, authenticated: req.isAuthenticated()});
     }
+
+    bookingError = 0;
     
 });
 
