@@ -514,6 +514,7 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         res.render("reserve.ejs", {bookingError, availableRooms: availableRooms, authenticated: req.isAuthenticated()});
     }
 
+    // Sets booking error back to zero to only show error message once
     bookingError = 0;
     
 });

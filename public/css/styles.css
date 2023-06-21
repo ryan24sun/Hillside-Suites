@@ -153,7 +153,7 @@ h2 {
 /* Home Page */
 #homeMain {
     background-image: url(../images/awesomeHomePic.webp);
-    /* background-attachment: fixed; */
+    background-attachment: fixed;
     background-size: cover;
     background-position: center; 
     background-repeat: no-repeat;
@@ -272,6 +272,7 @@ h2 {
     padding: 1% 4%;
 }
 
+/* Different styling for home page on smaller screens */
 @media (max-width: 1249px) {
     .picBtn {
         bottom: 40%;
@@ -343,6 +344,7 @@ h2 {
     transition: all 1s;
 }
 
+/* Creates transition delay effect for side by side gallery images */
 .hiddenGalleryPic:nth-child(2) {
     transition-delay: 150ms;
 }
@@ -391,6 +393,7 @@ h2 {
     padding: 3%;
 }
 
+/* Transition delays for smooth animations */
 .features:nth-child(2) {
     transition-delay: 200ms;
 }
@@ -407,6 +410,7 @@ h2 {
     transition-delay: 300ms;
 }
 
+/* Removes side-by-side delay for smaller screens */
 @media(max-width: 768px) {
 
     .profile:nth-child(2){
