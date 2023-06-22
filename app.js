@@ -513,9 +513,6 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         const availableRooms = await RoomType.find();
         res.render("reserve.ejs", {bookingError, availableRooms: availableRooms, authenticated: req.isAuthenticated()});
     }
-
-    // Sets booking error back to zero to only show error message once
-    bookingError = 0;
     
 });
 
@@ -1183,11 +1180,11 @@ app.post("/reserve", async function(req, res){
 
     // Commented out code to reset website if needed
 
-    // const delete1 = await Room.deleteMany({});
-    // console.log(delete1);
+    const delete1 = await Room.deleteMany({});
+    console.log(delete1);
 
-    // const delete2 = await Order.deleteMany({});
-    // console.log(delete2);
+    const delete2 = await Order.deleteMany({});
+    console.log(delete2);
 
     roomsFilled = [];
     checkoutRooms = [];

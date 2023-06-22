@@ -220,7 +220,7 @@
                     <% for (let i = 0; i < users.length; i++) { %>
                         <% if (users[i].username != "admin@gmail.com") { %>
                           <li class="list-group-item">
-                            <h3><%= "User " + (i + 1) %></h3>
+                            <h3><%= "User " + (i) %></h3>
                             <% if (users[i].googleId != null) { %>
                                 <p><%= users[i].googleId %></p>
                             <% } else { %>
