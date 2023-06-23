@@ -1180,11 +1180,11 @@ app.post("/reserve", async function(req, res){
 
     // Commented out code to reset website if needed
 
-    const delete1 = await Room.deleteMany({});
-    console.log(delete1);
+    // const delete1 = await Room.deleteMany({});
+    // console.log(delete1);
 
-    const delete2 = await Order.deleteMany({});
-    console.log(delete2);
+    // const delete2 = await Order.deleteMany({});
+    // console.log(delete2);
 
     roomsFilled = [];
     checkoutRooms = [];
