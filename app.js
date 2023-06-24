@@ -100,7 +100,18 @@ const defaultRooms = [singleRoom, doubleRoom, tripleRoom, masterSuite];
 
 // Function to reset room types displaying on reserve page
 async function resetRoomTypes() {
-    const defaultRooms = await DefaultRoom.find({});
+
+    // Gets default rooms in correct order
+    var defaultRooms;
+    await DefaultRoom.find({})
+    .sort({ _id: 1 })
+    .then((items) => {
+        defaultRooms = items;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
     RoomType.deleteMany({})
     .then(() => {
 
@@ -333,8 +344,19 @@ app.get("/" || "/home", async function(req, res){
 });
 
 app.get("/accommodations", async function(req, res){
-    const roomTypes = await DefaultRoom.find({});
-    res.render("accommodations.ejs", {authenticated: req.isAuthenticated(), roomTypes: roomTypes});
+
+    // Gets default rooms in correct order
+    var defaultRooms;
+    await DefaultRoom.find({})
+    .sort({ _id: 1 })
+    .then((items) => {
+        defaultRooms = items;
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+
+    res.render("accommodations.ejs", {authenticated: req.isAuthenticated(), roomTypes: defaultRooms});
 });
 
 app.get("/about", function(req, res){
@@ -356,8 +378,18 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
             console.log(availableRooms[0].newRooms);
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
 
+                // Gets default rooms in correct order
+                var defaultRooms;
+                await DefaultRoom.find({})
+                .sort({ _id: 1 })
+                .then((items) => {
+                    defaultRooms = items;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
                 // Reset default rooms
-                const defaultRooms = await DefaultRoom.find({});
                 RoomType.deleteMany({})
                 .then(() => {
 
@@ -434,8 +466,19 @@ app.get("/reserve" || "/book" || "/booknow", async function(req, res){
         } else {
             const availableRooms = await User.find({ username: req.user.username });
             if (availableRooms[0].newRooms.length === 0 || availableRooms[0].newRooms === null) {
+
+                // Gets default rooms in correct order
+                var defaultRooms;
+                await DefaultRoom.find({})
+                .sort({ _id: 1 })
+                .then((items) => {
+                    defaultRooms = items;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
                 // Reset room types
-                const defaultRooms = await DefaultRoom.find({});
                 RoomType.deleteMany({})
                 .then(() => {
 
@@ -604,9 +647,19 @@ app.get("/myBookings", async function(req, res){
 app.get("/admin", async function(req, res){
     if (req.isAuthenticated()) {
         if (req.user.admin) {
-            // Fills admin page with info from database
 
-            const defaultRooms = await DefaultRoom.find({});
+            // Gets default rooms in correct order
+            var defaultRooms;
+            await DefaultRoom.find({})
+            .sort({ _id: 1 })
+            .then((items) => {
+                defaultRooms = items;
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+            // Fills admin page with info from database
             RoomType.deleteMany({})
             .then(() => {
 
@@ -663,12 +716,24 @@ app.get("/admin", async function(req, res){
                 RoomType.insertMany(fillRoomTypes)
                 .then(async function() {
                     console.log("room types reset");
-                    const defaultRooms = await DefaultRoom.find({});
+
                     const roomTypes = await RoomType.find({});
-                    const rooms = await Room.find({});
+
+                    // Gets 35 rooms in correct order
+                    var rooms;
+                    await Room.find({})
+                    .sort({ _id: 1 })
+                    .then((items) => {
+                        rooms = items;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+
                     const orders = await Order.find({});
                     const users = await User.find({});
                     res.render("admin.ejs", {authenticated: req.isAuthenticated(), defaultRooms, roomTypes, rooms, orders, users});
+
                 })
                 .catch((err) => {
                     console.log(err);
@@ -1252,7 +1317,18 @@ app.post("/reserve", async function(req, res){
                 console.log("Rooms successfully filled!");
                 console.log(roomsFilled);
                 newRooms = [];
-                const defaultRooms = await DefaultRoom.find({});
+
+                // Gets default rooms in correct order
+                var defaultRooms;
+                await DefaultRoom.find({})
+                .sort({ _id: 1 })
+                .then((items) => {
+                    defaultRooms = items;
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+
                 //Clears current room types to replace with user's available rooms
                 RoomType.deleteMany({}) 
                     .then(function() {
