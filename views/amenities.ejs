@@ -95,21 +95,27 @@
                 <div id="map">
                   <script>
                     function initMap() {
+                      // Stores 6 different longitude and latitude pairs as points
                       let centerPark = {lat: 40.89848754116071, lng: -74.36129154155682}
                       let lakeClub = {lat: 40.927694524353996, lng: -74.37558778876361}
                       let willowbrookMall = {lat: 40.88927898359623, lng: -74.25972867527334}
                       let pyramidMt = {lat: 40.947091423130885, lng: -74.38912523584578}
                       let knollGolf = {lat: 40.8964754478072, lng: -74.38421331342028}
                       let montvillePark = {lat: 40.89899728436177, lng: -74.36521314485292}
+                      
+                      // Centers map at given point
                       let map = new google.maps.Map(
                         document.getElementById('map'), {zoom: 12, center: centerPark}
                       );
+                      
+                      // Places red marker at specified points
                       let marker = new google.maps.Marker({position: lakeClub, map: map})
                       let marker2 = new google.maps.Marker({position: willowbrookMall, map: map})
                       let marker3 = new google.maps.Marker({position: pyramidMt, map: map})
                       let marker4 = new google.maps.Marker({position: knollGolf, map: map})
                       let marker5 = new google.maps.Marker({position: montvillePark, map: map})
 
+                      // Labels for specified points
                       const markerString = "Valhala Lake Club";
                       const markerString2 = "Willowbrook Mall";
                       const markerString3 = "Pyramid Mountain";

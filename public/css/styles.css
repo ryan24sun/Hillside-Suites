@@ -52,6 +52,7 @@ h2 {
     padding: 2% 7%;
 }
 
+/* Styling for landing page images */
 #titleMain {
     background-image: url(../images/awesomeHomePic.webp);
     background-size: cover;
@@ -73,7 +74,7 @@ h2 {
     max-width: 100%;
 }
 
-/* Navbar */
+/* Navbar styling */
 .navbar {
     padding: 0.5% 6% 0 2%;
     margin: 0;
@@ -106,6 +107,7 @@ h2 {
     width: 190px;
 }
 
+/* Styling for reserve now button */
 .btn-custom {
     background-color: #1D5C63;
 }
@@ -165,6 +167,7 @@ h2 {
     max-height: 1000px;
 }
 
+/* Removes parallax scrolling on smaller devices */
 @media (max-width: 1200px) {
     #titleMain {
         background-attachment: scroll;
@@ -204,6 +207,7 @@ h2 {
     text-align: center;
 }
 
+/* Styling for images on home page */
 .picSection {
     text-align: center;
     position: relative;
@@ -231,6 +235,7 @@ h2 {
     position: relative;
 }
 
+/* Styling for introduction to hotel */
 .picDiv {
     position: relative;
     display: inline-block;
@@ -309,6 +314,7 @@ h2 {
     }
 }
 
+/* Styling for image gallery section */
 .galleryTitle {
     text-align: center;
     padding: 1% 4% 2% 4%;
@@ -361,6 +367,7 @@ h2 {
     transition-delay: 600ms;
 }
 
+/* Styling for testimonials section */
 .testimonials {
     background-color: #1D5C63;
     width: 75%;
@@ -433,6 +440,7 @@ h2 {
     padding: 1%;
 }
 
+/* Styling for call to action section */
 #cta {
     background-color: #417D7A;
     color: white;
@@ -477,6 +485,7 @@ h2 {
     padding-bottom: 11%;
 }
 
+/* Removes parallax scrolling on smaller screens */
 @media (max-width: 1200px) {
     #accommodationMain {
         background-attachment: scroll;
@@ -539,6 +548,7 @@ h2 {
     padding: 6% 5%;
 }
 
+/* Adds more padding to smaller screen sizes for accommodations */
 @media (max-width: 991px) {
     .sideDescription {
         padding: 6% 10%;
@@ -571,6 +581,7 @@ h2 {
     padding-bottom: 11%;
 }
 
+/* Removes parallax scrolling for smaller screen sizes */
 @media (max-width: 1200px) {
     #titleAbout {
         background-attachment: scroll;
@@ -602,6 +613,7 @@ h2 {
     text-align: center;
 }
 
+/* Styling for mission statement */
 .mission {
     background-color: #417D7A;
     color: white;
@@ -656,6 +668,7 @@ h2 {
     padding-bottom: 11%;
 }
 
+/* Removes parallax scrolling on smaller screen sizes */
 @media (max-width: 1200px) {
     #titleAmenities {
         background-attachment: scroll;
@@ -704,6 +717,7 @@ h2 {
     color: white;
 }
 
+/* Styles to control spacing on amenities */
 .big-pic {
     width: 100%;
     object-fit: cover;
@@ -731,6 +745,7 @@ h2 {
     margin-bottom: 10%;
 }
 
+/* Styles for amenities descriptions boxes */
 .amenity-desc {
     background-color: #1D5C63;
     transform: translate(50%, -260%);
@@ -772,6 +787,7 @@ h2 {
     flex-direction: column;
 }
 
+/* Styles for google maps */
 .map-back {
     background-color: #417D7A;
 }
@@ -803,6 +819,7 @@ h2 {
     padding-top: 5%;
 }
 
+/* Styles for text on amenities */
 .amenitiesText {
     text-align: center;
     padding-top: 10%;
@@ -837,8 +854,6 @@ h2 {
     margin-top: -2%;
 }
 
-
-
 /* Reserve Page */
 #titleReserve {
     background-image: url(../images/reservePicMaybeFinal.png);
@@ -853,6 +868,7 @@ h2 {
     padding-bottom: 11%;
 }
 
+/* Removes parallax scrolling on smaller screens */
 @media (max-width: 1200px) {
     #titleReserve {
         background-attachment: scroll;
@@ -883,6 +899,7 @@ h2 {
     margin-bottom: 5%;
 }
 
+/* Styling for cards on reserve page */
 .reserveCard {
     margin: 4% 0;
 }
@@ -912,6 +929,7 @@ small {
     padding-bottom: 2%;
 }
 
+/* Styling for error messages on reserve */
 .reserveErrorHeader {
     font-size: 2.5rem;
 }
@@ -955,6 +973,7 @@ small {
     width: 130px;
 }
 
+/* Styling for and around google maps button */
 .or-container {
     align-items: center;
     color: #ccc;
